@@ -1,0 +1,95 @@
+html, body{
+    height:100%;
+}
+
+a{color:inherit;text-decoration:none}
+
+.left{float:left}
+.right{float:right}
+.clear{clear:both}
+.nowrap{white-space:nowrap}
+.cursor{cursor:pointer}
+
+.comment_count{color:#ff6600;font-weight:bold}
+
+/* bbs */
+.bbs_title{word-break:break-all;padding:1em;background:#D9D9D9}
+.bbs_info{background:#f0f0f0;font-size:0.8em;padding:0.5em}
+.bbs_info ul {list-style:none;padding:0 0 0 10px}
+.bbs_contents{word-break:break-all;background:#ffffff;padding:0.5em;min-height:100px;height:auto !important;height:100px;}
+.bbs_tags, .bbs_urls, .bbs_files{font-size:0.8em;word-break:break-all;background:#ffffff;padding:0.5em;border-top:1px solid #e3e3e3;}
+.uploaded_files{padding:0.5em}
+.comment_contents{word-break:break-all;padding:0.5em}
+.comment_info{font-size:0.8em;padding:0.5em}
+.comment_even_row{background:#dddfea}
+.avatar{margin:0 0 5px 5px}
+
+/* etc */
+.is_read_1{color:#0099ff}
+.is_read_0{color:#ff6600;font-weight:bold}
+
+/* layout */
+#menu{text-align:center;height:40px;line-height:40px}
+#menu ul{list-style:none;margin:0;padding:0}
+
+/* div */
+#login_div, #join_div, #find_password_div, #write_comment_div, #write_div, #modify_div, #point_div, #scrap_div, #message_div, #friend_div, #message_receive_type_div{padding-top:0px}
+#captcha_img_div{padding-top:4px}
+#message_receive_type_div, #avatar_used_div, #avatar_file_form_div, #write_toggle_div, #write_checkbox_div, #modify_toggle_div, #modify_checkbox_div{width:90%}
+#favorite_add_div, #scrap_add_div{background-color:#d8d8d8;border-top:1px solid #B3B3B3}
+#write_btn_in_lists{padding-bottom:3px}
+#write_comment_div{border-top:1px solid #B3B3B3}
+#modify_comment_div{padding-top:7px;padding-bottom:7px}
+#header{padding-top:7px}
+#file-uploader{padding-bottom:7px}
+
+/* input */
+input#user_id, input#password, input#password_confirm, input#name, input#nickname, input#email, input#captcha, textarea#memo, textarea#info, input#title, input#url, input#article_original_title, textarea#contents, input#tags, input#urls, textarea#comment, textarea#title{width:90%}
+
+/* jquerymobile 1.1.0 rc2 에서 없어져서 */
+.ui-mobile img {
+    max-width: 100%;
+}
+.ui-btn {
+    margin: .5em 5px;
+}
+
+#tapbbs_navigation{
+    margin:5px 5px 5px 0;
+    text-align:right;
+    font-size:9pt;
+}
+
+label.keep_login_label{
+    position:relative;top:-6px;
+    margin-right:5px;
+    font-size:11pt;
+    color: #0078F0;
+    font-weight:bold;
+}
+
+.clearer{
+    clear:both
+}
+
+.gallery {
+    margin:20px 0 20px 0 !important;
+    padding:0 10px !important;
+    height:100% !important;
+    display:block;
+}
+.gallery li{
+    position:relative;
+    background:#fff !important;
+    display:inline-block;
+    width:80px;
+    height:80px;
+    margin:2px !important;
+    padding:2px !important;
+    border:2px solid #ccc;
+    overflow:hidden;
+}
+.gallery img.gallery_image {
+    width:80px;
+    height:80px;
+}

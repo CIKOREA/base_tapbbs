@@ -1,0 +1,211 @@
+-- 최고관리자 (기본 비번 111)
+INSERT INTO tb_users
+	(user_id, super_secured_password, name, nickname, level, email, timezone, timestamp_insert, client_ip_insert, group_idx)
+VALUES
+	('admin', '$2a$08$fCCxXnMQ4wMXgvIkOg5n2u7v4qt8uXDa8eQhVj71Tp5dWZheK8rau', 'ADMIN', 'ADMIN', 99, 'BUILT IN', 'UP9', UNIX_TIMESTAMP(NOW()), 'BUILT IN', 1);
+
+
+-- 기본 그룹
+INSERT INTO tb_users_group (group_name, exec_user_idx, client_ip) VALUES ('최고관리자', (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_users_group (group_name, exec_user_idx, client_ip) VALUES ('일반회원', (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+
+-- 최고관리자 그룹 업데이트 (오류방지)
+UPDATE tb_users SET group_idx = (SELECT idx FROM tb_users_group WHERE group_name = '최고관리자') WHERE user_id = 'admin';
+
+
+-- 기본 그룹은 삭제할 수 없도록 idx 저장 (tb_setting 이용)
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('fix_group', (SELECT CONCAT('a:2:{i:0;i:',(SELECT idx FROM tb_users_group WHERE group_name = '최고관리자'),';i:1;i:',(SELECT idx FROM tb_users_group WHERE group_name = '일반회원'),';}')), 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+-- 기본 세팅
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('access_client_ip_save_day', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('access_client_ip_save_term', 180, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('admin_group_idx', (SELECT idx FROM tb_users_group WHERE group_name = '최고관리자'), 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('ajax_timeout', 30, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('apple_touch_icon_path', 'apple-touch-icon_tapbbs.png', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('apple_touch_icon_precomposed', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('avatar_limit_capacity', 1048576, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('avatar_limit_image_size_height', '50', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('avatar_limit_image_size_width', '50', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('avatar_used', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_upload', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_download', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_view_article', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_view_comment', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_view_list', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_write_article', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_group_write_comment', (SELECT CONCAT('a:1:{i:0;i:', idx, ';}') FROM tb_users_group WHERE group_name = '최고관리자'), 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_html_tag_comment', 'a:8:{i:0;s:1:"b";i:1;s:6:"strong";i:2;s:1:"a";i:3;s:2:"em";i:4;s:3:"img";i:5;s:5:"embed";i:6;s:4:"font";i:7;s:1:"p";}', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_html_tag_comment_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_html_tag_contents', 'a:8:{i:0;s:1:"b";i:1;s:6:"strong";i:2;s:1:"a";i:3;s:2:"em";i:4;s:3:"img";i:5;s:5:"embed";i:6;s:4:"font";i:7;s:1:"p";}', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_allow_html_tag_contents_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_block_string', 'a:2:{i:0;s:9:"개새끼";i:1;s:9:"씹새끼";}', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_block_string_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_comment_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_list_article', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_list_comment', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_page_article', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_page_comment', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hit_article_title_color_count', 100, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hit_article_title_color_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hit_article_title_color_value', '#ff6600', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_path_article', 'front_end/common/img/icon/new_article.gif', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_path_comment', 'front_end/common/img/icon/new_comment.gif', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_used_article', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_used_comment', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_value_article', 24, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hour_new_icon_value_comment', 24, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_length_minimum_article_title', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_length_minimum_comment', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_length_minimum_contents', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_limit_insert_delay_type', 'S', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_limit_insert_delay_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_limit_insert_delay_value', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_article', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_article_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_comment', 5, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_comment_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_vote_receiver', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_vote_receiver_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_vote_sender', 5, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_point_vote_sender_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_rss_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_tags_limit_count', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_tags_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_textarea_comment', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_textarea_contents', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_allow_extension', 'a:14:{i:0;s:3:"jpg";i:1;s:4:"jpeg";i:2;s:3:"gif";i:3;s:3:"png";i:4;s:3:"txt";i:5;s:3:"doc";i:6;s:3:"xls";i:7;s:3:"pdf";i:8;s:3:"ppt";i:9;s:3:"zip";i:10;s:2:"7z";i:11;s:3:"alz";i:12;s:3:"rar";i:13;s:7:"torrent";}', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_image_quality', '100%', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_capacity', 2097152, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_count', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_image_size_height', '0', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_image_size_width', '0', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_user_capacity', 31457280, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_limit_user_capacity_used', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_upload_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_urls_limit_count', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_urls_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_vote_article_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_vote_comment_used', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_category_used', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('block_client_ip_contents', '차단된 IP입니다.', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('browser_title_fix_value', 'TapBBS', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('browser_title_type', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('captcha_timeout', 3600, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('datetime_type', 'Y/m/d H:i:s', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('default_group_idx', (SELECT idx FROM tb_users_group WHERE group_name = '일반회원'), 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('default_timezone', 'UP9', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('favicon_path', 'favicon_tapbbs.ico', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('need_update_password_delay_used', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('need_update_password_delay_value', 180, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('new_password_mail_contents', '{user_id}님의 임시비밀번호는 {new_password}입니다. 1시간 내에 로그인 하셔야합니다.', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('new_password_mail_title', 'TapBBS 임시비밀번호 안내', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('new_password_timeout', 3600, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('point_unit', 'P', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('reload_time_used', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('reload_time_value', 180, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('site_block_contents', '공사중입니다.', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('site_block_used', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_id_length_maximum', 32, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_id_length_minimum', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_name_length_maximum', 16, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_name_length_minimum', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_nickname_length_maximum', 16, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_nickname_length_minimum', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_password_length_maximum', 16, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('user_password_length_minimum', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('view_name_type', '{nickname}({user_id})', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('join_used', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_comment_sort', 'DESC', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_recently_count', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('recently_comment_count', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_search', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_search', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_point', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_point', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_scrap', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_scrap', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_message', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_message', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_friend', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_friend', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('recently_comment_count_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_recently_comment_pc', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_search_pc', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_search_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_search_pc', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('browser_title_fix_value_pc', 'TapBBS', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('browser_title_type_pc', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('datetime_type_pc', 'Y/m/d H:i:s', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_point_pc', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_point_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_scrap_pc', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_scrap_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_scrap_pc', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_message_pc', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_message_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_message_pc', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_list_friend_pc', 10, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('count_page_friend_pc', 3, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('avatar_used_pc', 1, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('view_name_type_pc', '{nickname}({user_id})', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_textarea_contents_pc', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_list_comment_pc', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_page_comment_pc', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_textarea_comment_pc', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_list_article_pc', 10, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_count_page_article_pc', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hit_article_title_color_used_pc', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_hit_article_title_color_value_pc', '#ff6600', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_cut_length_title_pc', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_recently_count_pc', 3, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_cut_length_recently_pc', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_rss_used_pc', 1, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_recently_comment', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_search', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_scrap', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('cut_length_title_message', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('string_after_cut_length', '...', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_cut_length_recently', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_cut_length_title', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_thumbnail_width', 500, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_thumbnail_quality', '72%', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_etc1', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_etc2', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_lists_style', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_lists_style_pc', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+-- 기본 게시판
+INSERT INTO tb_bbs (bbs_id, exec_user_idx, timestamp, client_ip) VALUES ('community', (SELECT idx FROM tb_users WHERE user_id = 'admin'), UNIX_TIMESTAMP(NOW()), 'BUILT IN');
+INSERT INTO tb_bbs (bbs_id, exec_user_idx, timestamp, client_ip) VALUES ('gallery', (SELECT idx FROM tb_users WHERE user_id = 'admin'), UNIX_TIMESTAMP(NOW()), 'BUILT IN');
+
+-- 기본 게시판 세팅
+-- 커뮤니티
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) VALUES ((SELECT idx FROM tb_bbs WHERE bbs_id = 'community'), 'bbs_name', '커뮤니티', (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) VALUES ((SELECT idx FROM tb_bbs WHERE bbs_id = 'community'), 'bbs_used', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) SELECT (SELECT idx FROM tb_bbs WHERE bbs_id = 'community'), parameter, value, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN' FROM tb_setting WHERE default_bbs = 1;
+-- 갤러리
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) VALUES ((SELECT idx FROM tb_bbs WHERE bbs_id = 'gallery'), 'bbs_name', '갤러리', (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) VALUES ((SELECT idx FROM tb_bbs WHERE bbs_id = 'gallery'), 'bbs_used', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) SELECT (SELECT idx FROM tb_bbs WHERE bbs_id = 'gallery'), parameter, value, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN' FROM tb_setting WHERE default_bbs = 1;
+
+-- 게시판 설정 추가 예제
+-- INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_category_used', 0, 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+-- INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) SELECT bbs_idx, 'bbs_category_used', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN' FROM tb_bbs_setting WHERE parameter = 'bbs_name';
+
+-- 게시판 lists_style
+-- INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_lists_style', '', 1, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+-- INSERT INTO tb_bbs_setting (bbs_idx, parameter, value, exec_user_idx, client_ip) SELECT bbs_idx, 'bbs_lists_style', '', (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN' FROM tb_bbs_setting WHERE parameter = 'bbs_name';
+
+INSERT INTO `tb_themes` (type, title, folder_name, exec_user_idx, timestamp_insert, client_ip_insert, is_used) VALUES ('M', '기본', 'default', (SELECT idx FROM tb_users WHERE user_id = 'admin'), UNIX_TIMESTAMP(NOW()), 'BUILT IN', 1);
+INSERT INTO `tb_themes` (type, title, folder_name, exec_user_idx, timestamp_insert, client_ip_insert, is_used) VALUES ('P', '기본', 'default', (SELECT idx FROM tb_users WHERE user_id = 'admin'), UNIX_TIMESTAMP(NOW()), 'BUILT IN', 1);
+INSERT INTO `tb_setting` (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('bbs_recently_used', 'a:2:{i:0;s:7:"gallery";i:1;s:9:"community";}', 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+-- 첨부파일 정리 마지막 인덱스
+INSERT INTO tb_setting (parameter, value, default_bbs, exec_user_idx, client_ip) VALUES ('arrangefiles_last_idx', 0, 0, (SELECT idx FROM tb_users WHERE user_id = 'admin'), 'BUILT IN');
+
+-- 갤러리 리스트스타일 업데이트
+UPDATE tb_bbs_setting SET value = 'gallery' WHERE bbs_idx = (SELECT idx FROM tb_bbs WHERE bbs_id = 'gallery') AND parameter = 'bbs_lists_style';
+UPDATE tb_bbs_setting SET value = 'gallery' WHERE bbs_idx = (SELECT idx FROM tb_bbs WHERE bbs_id = 'gallery') AND parameter = 'bbs_lists_style_pc';

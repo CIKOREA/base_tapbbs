@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="description" content="description"/>
+<meta name="keywords" content="keywords"/> 
+<meta name="author" content="author"/> 
+<link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
+<link rel="icon" href="favicon_tapbbs.ico" />
+<title>TapBBS Manual</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="header">
+		
+		<div class="title">
+			<h1>TapBBS v1.x.x Manual</h1>
+		</div>
+
+		<div class="navigation">
+            <a href="index.html">기본</a>
+            <a href="structure.html">구조</a>
+            <a href="functions.html">주요기능</a>
+            <a href="install.html">설치방법</a>
+            <a href="theme.html">테마작업</a>
+            <a href="faq.html">FAQ</a>
+			<div class="clearer"><span></span></div>
+		</div>
+
+	</div>
+
+	<div class="main">
+		
+		<div class="content">
+
+            <h1>3분 게시판, 초간단 MOBILE && PC 게시판.</h1>
+            <div class="descr">TapBBS - ZzanLAB</div>
+
+           <img src="./img/capture_pc.png" style="vertical-align: top" /> <img src="./img/capture_mobile.png" />
+
+            <h1>CodeIgniter (PHP Framework) 기반 공개형 게시판</h1>
+
+            <h1>TapBBS : Tap (톡톡 두드리다) + BBS (Bulletin Board System)</h1>
+
+			<h1 id="license">저작권</h1>
+            <div class="descr">BSD licenses</div>
+
+			<p>
+                Copyright (c) 2013, ZzanLAB.com<br />
+                All rights reserved.<br />
+                <br />
+                TapBBS is under BSD license.<br />
+                Redistribution and use in source and binary forms, with or without<br />
+                modification, are permitted provided that the following conditions are met:<br />
+                <br />
+                1. Redistributions of source code must retain the above copyright notice, this<br />
+                list of conditions and the following disclaimer.<br />
+                2. Redistributions in binary form must reproduce the above copyright notice,<br />
+                this list of conditions and the following disclaimer in the documentation<br />
+                and/or other materials provided with the distribution.<br />
+                <br />
+                THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br />
+                ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<br />
+                WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE<br />
+                DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR<br />
+                ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES<br />
+                (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;<br />
+                LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND<br />
+                ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<br />
+                (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS<br />
+                SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br />
+                <br />
+                본 프로그램(TapBBS)는 BSD 라이센스를 사용합니다.<br />
+                본 프로그램을 사용하는 모든 프로그램은 아래의 사항을 준수하실 때만<br />
+                자유롭게 배포하실 수 있습니다.<br />
+                <br />
+                1. 재배포되는 소스코드는 반드시 본 라이센스 파일을 포함해야합니다.<br />
+                2. 본 라이센스파일은 수정되지 않아야 합니다.<br />
+                <br />
+                제작자인 ZzanLAB은 본 프로그램을 사용할때 발생할 수 있는 어떠한 문제나<br />
+                금전적 손실에 대해서도 배상할 책임이 없습니다.<br />
+            </p>
+
+			<h1 id="requirement">요구사항</h1>
+
+            <ul>
+                <li>PHP : 5.1.6 이상</li>
+                <li>MySQL : 4.1 이상</li>
+                <li>Curl</li>
+                <li>GD</li>
+                <li>Timezone</li>
+                <li>mbstring</li>
+            </ul>
+
+            <h1 id="use">사용</h1>
+            <div class="descr">Thanks.</div>
+
+            <ul>
+                <li>CodeIgniter 2.2.1 (http://cikorea.net/) (http://codeigniter.com/)</li>
+                <li>jquery 1.8.3 (http://jquery.com/)</li>
+                <li>jquerymobile 1.2.0 (http://jquerymobile.com/)</li>
+                <li>jquery ui 1.10.0 (http://jqueryui.com/)</li>
+                <li>jquery jqfeed 1.0 (http://archive.plugins.jquery.com/project/jgfeed)
+				<br />- Licensed under the GPL license</li>
+                <li>DD_belatedPNG 0.0.8a (http://www.dillerdesign.com/experiment/DD_belatedPNG/)
+				<br />- MIT</li>
+                <li>Ajax Upload (http://valums.com/ajax-upload/)
+				<br />- GNU GPL and GNU LGPL 2 or late</li>
+                <li>jquery alerts 1.1 (http://www.abeautifulsite.net/blog/2008/12/jquery-alert-dialogs/)
+				<br />- GNU General Public License and the MIT License</li>
+                <li>jQuery MiniColors 2.0 (http://www.abeautifulsite.net/blog/2011/02/jquery-minicolors-a-color-selector-for-input-controls/)
+				<br />- Dual-licensed under the MIT and GPL Version 2 licenses</li>
+                <li>관리자페이지 템플릿 (http://templates.arcsin.se/freshmade-software-website-template/)
+				<br />- include the provided credit links (http://templates.arcsin.se/license/)</li>
+                <li>메뉴얼 템플릿 (http://templates.arcsin.se/indigo-website-template/)
+				<br />- include the provided credit links (http://templates.arcsin.se/license/)</li>
+                <li>Curl 라이브러리 (http://philsturgeon.co.uk/code/codeigniter-curl)
+				<br />- http://philsturgeon.co.uk/code/dbad-license</li>
+                <li>jquery-loadmask-0.4 (https://code.google.com/p/jquery-loadmask/)
+				<br />- MIT License</li>
+                <li>jQuery Cookie Plugin v1.3.1 (https://github.com/carhartl/jquery-cookie)
+				<br />- Released under the MIT license</li>
+                <li>bootstrap-transition.js v2.3.1 (http://twitter.github.com/bootstrap/javascript.html#transitions)
+				<br />- Licensed under the Apache License, Version 2.0 (the "License");</li>
+                <li>phpass-0.3 (http://www.openwall.com/phpass/)</li>
+                <li>Template_ 2.2.7 (http://www.xtac.net/)
+				<br />- LGPL</li>
+                <li>PC 템플릿 (http://www.css3templates.co.uk/templates/CSS3_trees/index.html)
+				<br />- Please also let me know the URL of the site where you will be using the template without the link back</li>
+                <li>Slides-SlidesJS-3 (http://slidesjs.com/)
+				<br />- Licensed under the Apache License, Version 2.0 (the "License");</li>
+                <li>fancybox (http://fancybox.net/)
+				<br />- Licensed under both MIT and GPL licenses</li>
+                <li>jquery.bxslider (http://bxslider.com/)
+				<br />- WTFPL – Do What the Fuck You Want to Public License</li>
+                <li>Modernizr 2.6.2 (http://modernizr.com/)
+				<br />- under the MIT license</li>
+                <li>bootstrap-tagsinput (http://timschlechter.github.io/bootstrap-tagsinput/examples/)
+				<br />- under the MIT license</li>
+				<li>CKEditor 4.4.3 (http://ckeditor.com/)
+				<br />- GNU General Public License Version 2 or later (the "GPL")</li>
+            </ul>
+		</div>
+
+		<div class="sidenav">
+
+			<h1>Short cut</h1>
+			<ul>
+				<li><a href="#license">저작권</a></li>
+				<li><a href="#requirement">요구사항</a></li>
+				<li><a href="#use">사용</a></li>
+			</ul>
+
+		</div>
+	
+		<div class="clearer">&nbsp;</div>
+
+	</div>
+
+</div>
+
+<div class="footer">
+
+	<div class="left">Copyright &copy; <a href="http://zzanlab.com" target="_blank">ZzanLAB</a>.</div>
+	
+	<div class="right"><a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a></div>
+	
+	<div class="clearer">&nbsp;</div>
+
+</div>
+
+</body>
+
+</html>

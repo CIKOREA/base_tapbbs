@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="description" content="description"/>
+<meta name="keywords" content="keywords"/> 
+<meta name="author" content="author"/> 
+<link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
+<link rel="icon" href="favicon_tapbbs.ico" />
+<title>TapBBS Manual</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="header">
+		
+		<div class="title">
+			<h1>TapBBS v1.x.x Manual</h1>
+		</div>
+
+		<div class="navigation">
+            <a href="index.html">기본</a>
+            <a href="structure.html">구조</a>
+            <a href="functions.html">주요기능</a>
+            <a href="install.html">설치방법</a>
+            <a href="theme.html">테마작업</a>
+            <a href="faq.html">FAQ</a>
+			<div class="clearer"><span></span></div>
+		</div>
+
+	</div>
+
+	<div class="main">
+		
+		<div class="content">
+
+            <h1>3분 게시판, 초간단 MOBILE && PC 게시판.</h1>
+            <div class="descr">TapBBS - ZzanLAB</div>
+
+			<h1 id="./application">./application</h1>
+
+            <ul>
+                <li>./cache (캐시)
+				<br /> - 각종 캐시 보관</li>
+				<li>./config (대부분 Codeigniter에서 제공하는 설정을 수정하여 사용)
+				<br />- ./autoload.php (자동로딩 라이브러리 / 헬퍼 정의)
+				<br />- ./config.php (기본 설정들)
+				<br />- ./constants.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./database_template.php (설치하면 DB정보가 입력된 database.php가 생성)
+				<br />- ./doctypes.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./email.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./foreign_chars.php  <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./gd_template.php (설치하면 GD정보가 입력된 gd.php가 생성 - TapBBS 전용)
+				<br />- ./hooks.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./mimes.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./pagination.php (페이지네이션 디자인 설정 - TapBBS 전용)
+				<br />- ./profiler.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./routes.php (라우팅 정보)
+				<br />- ./smileys.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				<br />- ./trigger_template.php (설치하면 trigger 사용여부가 입력된 trigger.php 생성 - TapBBS 전용)
+				<br />- ./user_agents.php <span style="color:#c8c8c8">(수정 하지 않음)</span>
+				</li>
+				<li>./controllers (컨트롤러)
+				<br />- ./admin/bbs.php (관리자페이지 > 게시판)
+				<br />- ./admin/index.php (관리자페이지 > 주소/admin으로 접근시 주소/admin/setting 으로 이동하게 함)
+				<br />- ./admin/install.php (TapBBS 인스톨)
+				<br />- ./admin/ip.php (관리자페이지 > IP)
+				<br />- ./admin/setting.php (관리자페이지 > 설정) 
+				<br />- ./admin/users.php (관리자페이지 > 회원)
+				<br />- ./plugin/onedayonememo.php (프론트 > 플러그인 > 하루한마디)
+				<br />- ./back_door_server.php (불필요, 설치로그를 중앙서버에 보관하는 용 - TapBBS 중앙서버용)
+				<br />- ./bbs.php (프론트 > 게시판)
+				<br />- ./block.php (프론트 > 차단페이지)
+				<br />- ./index.php (프론트 > 인덱스)
+				<br />- ./js.php (프론트 > Javascript, Controller를 통해 생산해내는 Javascript)
+				<br />- ./page.php (프론트 > 추가페이지, 회사소개 페이지 등 추가페이지 연결)
+				<br />- ./search.php (프론트 > 게시판 통합 검색)
+				<br />- ./user.php (프론트 > 회원 관련)
+				</li>
+				<li>./core (코어 확장)
+				<br />- ./MY_Controller.php (공용 컨트롤러, 코어 확장)
+				</li>
+				<li>./errors (에러 표출)
+				<br />- ./error_404.php (404 에러 페이지 - UTF-8 메타태그만 추가)
+				<br />- ./error_db.php (DB 에러 페이지 - UTF-8 메타태그만 추가)
+				<br />- ./error_general.php (일반 에러 페이지 - UTF-8 메타태그만 추가)
+				<br />- ./error_php.php (PHP 에러 페이지 - <span style="color:#c8c8c8">수정 하지 않음</span>)
+				</li>
+				<li>./helpers (헬퍼)
+				<br />- ./MY_captcha_helper.php (캡챠 헬퍼 오버라이딩, 모바일에서 숫자만으로 캡챠 이미지를 만들어 지도록하기 위해 수정)
+				<br />- ./MY_email_helper.php (이메일 헬퍼 오버라이딩, 특정 모바일 확경에서 한글깨짐을 막기 위해 수정)
+				<br />- ./MY_text_helper.php (텍스트 헬퍼 오버라이딩, 욕 필터링 부분을 TapBBS에 맞게끔 수정)
+				<br />- ./tapbbs_helper.php (TapBBS 전용 헬퍼)
+				</li>
+				<li>./hooks (후킹)
+				<br />- NULL
+				</li>
+				<li>./language (언어팩)
+				<br />- ./english/plugin/onedayonememo_lang.php (하루한마디 영문 언어팩)
+				<br />- ./english/tapbbs_lang.php (TapBBS 영문 언어팩)
+				<br />- ./korean/plugin/onedayonememo_lang.php (하루한마디 한글 언어팩)
+				<br />- ./calendar_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./date_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./db_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./email_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./form_validation_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./ftp_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./imglib_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./number_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./profiler_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./tapbbs_lang.php (TapBBS 한글 언어팩)
+				<br />- ./unit_test_lang.php (시스템 영문 언어팩 한글화)
+				<br />- ./upload_lang.php (시스템 영문 언어팩 한글화)
+				</li>
+				<li>./libraries (라이브러리)
+				<br />- ./Back_door_client.php (인스톨시 phpinfo를 TapBBS 중앙서버로 송출)
+				<br />- ./Bbs_common.php (게시판 공용 라이브러리, 현재는 최근게시물 함수만 존재)
+				<br />- ./Curl.php (Curl 라이브러리)
+				<br />- ./Layout.php (Layout 라이브러리, 어드민 view 에서 사용)
+				<br />- ./Navigation.php (현재 페이지의 경로 표현, ex. 홈 > 게시판 > 자유게시판)
+				</li>
+				<li>./logs
+				<br />- NULL (config.php > $config['log_threshold'] 설정에 따라 적재)
+				</li>
+				<li>./models (DB 모델)
+				<br />- ./plugin/onedayonememo_model.php (하루한마디 모델)
+				<br />- ./back_door_server_model.php (백도어 서버측 모델, TapBBS 중앙서버에서만 사용)
+				<br />- ./bbs_article_model.php (게시판 리스트를 위한 기본 정보 모델)
+				<br />- ./bbs_article_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./bbs_category_model.php (게시물 카테고리 모델)
+				<br />- ./bbs_category_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./bbs_comment_model.php (게시물의 코멘트 모델)
+				<br />- ./bbs_comment_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./bbs_contents_model.php (게시물 상세내용 모델)
+				<br />- ./bbs_contents_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./bbs_file_model.php (파일 모델)
+				<br />- ./bbs_file_temporary_model.php (파일 임시 저장 모델, 게시물 작성시 우선적으로 파일을 올리는 부분에서 사용 (파일정리시 사용))
+				<br />- ./bbs_hit.php (게시물 조회수 모델)
+				<br />- ./bbs_model.php (게시판 기본 정보 모델)
+				<br />- ./bbs_setting_model.php (게시판별 설정 모델)
+				<br />- ./bbs_setting_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./bbs_tag_model.php (게시물의 태그 모델)
+				<br />- ./bbs_url_model.php (게시물의 참조링크 모델)
+				<br />- ./bbs_vote_model.php (게시물의 추천 모델)
+				<br />- ./client_ip_access_model.php (접근 IP 모델)
+				<br />- ./client_ip_block_model.php (차단 IP 모델)
+				<br />- ./install_model.php (TapBBS 인스톨 모델)
+				<br />- ./setting_model.php (기본 설정 모델)
+				<br />- ./setting_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./themes_model.php (테마 모델)
+				<br />- ./users_friend_model.php (친구관리 모델)
+				<br />- ./users_group_model.php (회원그룹 모델)
+				<br />- ./users_group_revision_model.php (위 수정내역 저장, 트리거 사용 필수)
+				<br />- ./users_message_model.php (쪽지 모델)
+				<br />- ./users_model.php (회원 모델)
+				<br />- ./users_point_model.php (회원 포인트 모델)
+				<br />- ./users_url_model.php (스크랩/즐겨찾기 모델)
+				</li>
+				<li>./third_party (서드파티)
+				<br />- ./phpass-0.3 (비밀번호 암호화 솔루션)
+				<br />- ./template_ (프론트 템플릿 솔루션)
+				</li>
+				<li>./views (어드민 뷰)
+				<br />- ./admin/bbs/arrangefiles_view.php (게시판 > 첨부파일 정리)
+				<br />- ./admin/bbs/article_revision_view.php (게시판관리 > 게시물관리 > 게시물 기본 정보 수정내역)
+				<br />- ./admin/bbs/category_insert_view.php (게시판관리 > 게시판별 카테고리 > 게시물 카테고리 추가폼)
+				<br />- ./admin/bbs/category_revision_view.php (게시판관리 > 게시판별 카테고리 > 게시물 카테고리 수정내역)
+				<br />- ./admin/bbs/category_update_view.php (게시판관리 > 게시판별 카테고리 > 게시물 카테고리 수정폼)
+				<br />- ./admin/bbs/category_view.php (게시판 > 게시판관리 > 게시판별 카테고리)
+				<br />- ./admin/bbs/comment_revision_view.php (게시판 > 게시물관리 > 게시물의 코멘트 수정내역)
+				<br />- ./admin/bbs/contents_revision_view.php (게시판 > 게시물관리 > 게시물 상세내용 수정내역)
+				<br />- ./admin/bbs/index.php (게시판 > 게시판 공통 설정)
+				<br />- ./admin/bbs/lists_view.php (게시판 > 게시물관리)
+				<br />- ./admin/bbs/modify_view.php (게시판 > 게시물관리 > 게시물 수정폼)
+				<br />- ./admin/bbs/setting_detail_view.php (게시판별 설정)
+				<br />- ./admin/bbs/setting_view.php (게시판 관리)
+				<br />- ./admin/install/tapbbs_view.php (TapBBS 인스톨)
+				<br />- ./admin/ip/access_view.php (IP > 접근 내역)
+				<br />- ./admin/ip/block_view.php (IP > IP 차단)
+				<br />- ./admin/setting/index_view.php (설정 > 사이트)
+				<br />- ./admin/setting/revision_view.php (설정 > 사이트 수정내역 (게시판 공통 설정에서도 같이 사용)
+				<br />- ./admin/setting/themes_view.php (설정 > 테마)
+				<br />- ./admin/users/block_history_view.php <span style="color:#c8c8c8">(현재 사용하지 않음)</span>
+				<br />- ./admin/users/detail_view.php (회원 > 상세정보)
+				<br />- ./admin/users/group_revision_view.php (회원 > 그룹관리 수정내역)
+				<br />- ./admin/users/group_view.php (회원 > 그룹관리)
+				<br />- ./admin/users/index_view.php (회원 > 회원관리)
+				<br />- ./admin/users/point_view.php (회원 > 포인트내역)
+				<br />- ./alert_view.php (공용 alert)
+				<br />- ./layout_admin_only_contents_view.php (팝업등 레이아웃이 없는 페이지)
+				<br />- ./layout_admin_view.php (기본 레이아웃)
+				<br />- ./login_view.php (로그인폼, 로그아웃 상태에서 진입시 노출)
+				</li>
+            </ul>
+
+			<h1 id="./avatars">./avatars</h1>
+
+			<ul>
+				<li>회원ID.확장자 (ex. admin.gif) 형식으로 회원 아바타 이미지 보관 폴더</li>
+			</ul>
+
+			<h1 id="./captcha">./captcha</h1>
+
+			<ul>
+				<li>회원가입, 비밀번호찾기 등에서 생성되는 캡챠 이미지 보관 폴더 (유효 시간 설정 가능)</li>
+			</ul>
+
+			<h1 id="./front_end">./front_end</h1>
+			
+			<ul>
+				<li>./common (공통영역)
+				<br />- 공용 css, img, js</li>
+				<li>./theme (테마)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/lists.tpl (게시물 리스트)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/lists_gallery.tpl (게시물 리스트 - 갤러리형)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/lists_webzine.tpl (게시물 리스트 - 웹진형)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/modify.tpl (게시물 수정)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/search.tpl (게시물 검색)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/view.tpl (게시물 내용)
+				<br />- ./mobile||pc/스킨명/_template/contents/bbs/write.tpl (게시물 작성)
+				<br />- ./mobile||pc/스킨명/_template/contents/plugin/onedayonememo.tpl (플러그인 - 하루한마디)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/find_password.tpl (비밀번호 찾기)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/friend.tpl (친구관리)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/join.tpl (회원가입)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/login.tpl (로그인)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/message.tpl (메시지 리스트)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/message_detail.tpl (메시지 내용)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/modify.tpl (회원수정)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/outlogin_after_login.tpl (아웃로그인 - 로그인 후)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/outlogin_before_login_tpl (아웃로그인 - 로그인 전)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/point.tpl (포인트 내역)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/scrap.tpl (스크랩)
+				<br />- ./mobile||pc/스킨명/_template/contents/user/send_message.tpl (메시지 보내기)
+				<br />- ./mobile||pc/스킨명/_template/contents/alert.tpl (alert)
+				<br />- ./mobile||pc/스킨명/_template/contents/index.tpl (index)
+				<br />- ./mobile||pc/스킨명/_template/layout/contents.tpl (레이아웃 없이 내용만 보이는 용도)
+				<br />- ./mobile||pc/스킨명/_template/layout/layout.tpl (레이아웃)
+				<br />- ./mobile||pc/스킨명/_template/introduce.tpl (소개)
+				<br />- ./mobile||pc/스킨명/css (해당 스킨용 css)
+				<br />- ./mobile||pc/스킨명/img (해당 스킨용 img)
+				<br />- ./mobile||pc/스킨명/js (해당 스킨용 js)
+				</li>
+				<li>./third_party (서드파티)
+				<br />- TapBBS에서 사용된 외부 솔루션 (jquery, ckeditor 등)</li>
+			</ul>
+
+			<h1 id="./manual">./manual</h1>
+			
+			<ul>
+				<li>버젼별 메뉴얼 (메뉴얼은 순수 html로 apache 환경 없이도 확인 가능)</li>
+			</ul>
+
+			<h1 id="./system">./system</h1>
+			
+			<ul>
+				<li>CodeIgniter Core 폴더 (전혀 수정하지 않고 원본 그대로 사용)</li>
+			</ul>
+
+			<h1 id="./uploads">./uploads</h1>
+			
+			<ul>
+				<li>./게시판시퀀스/Ymd/업로드파일(암호화) 형태로 업로드 파일 보관 (ex. ./1/20130101/a8b485ac01a1a39177b4a227fbd6c32a.jpg)</li>
+			</ul>
+
+			<h1 id="./">./</h1>
+
+            <ul>
+                <li>./.htaccess
+				<br />- mode_rewrite 설정 파일</li>
+				<li>./apple-touch-icon_tapbbs.png
+				<br />- 아이폰 바탕화면 아이콘 이미지</li>
+				<li>./back_door_server.mwb
+				<br />- 백도어 DB 모데링 파일 (TapBBS 중앙서버용)</li>
+				<li>./facebook_thumbnail.png
+				<br />- 페이스북용 썸네일 이미지</li>
+				<li>./favicon_tapbbs.ico
+				<br />- favicon</li>
+				<li>./index.php
+				<br />- Codeigniter index 파일</li>
+				<li>./license.txt
+				<br />- Codeigniter 라이센스 파일 <span style="color:#c8c8c8">(수정 하지 않음)</span></li>
+				<li>./license_tapbbs.txt
+				<br />- TapBBS 라이센스 파일</li>
+				<li>./robots.txt
+				<br />- 검색로봇 대비 파일</li>
+				<li>./sql.create.table.txt
+				<br />- 설치파일 : DB 테이블 생성용</li>
+				<li>./sql.create.trigger.txt
+				<br />- 설치파일 : DB 트리거 생성용</li>
+				<li>./sql.insert.txt.
+				<br />- 설치파일 : DB 기본 정보 등록용</li>
+				<li>./sql.upgrade.1.0.0.txt
+				<br />- 설치파일 : 0.1.11 => 1.0.0 버젼 변경에 따른 DB 수정 부분</li>
+				<li>./tapbbs.mwb
+				<br />- TapBBS DB 모델링 파일</li>
+				<li>./version.txt
+				<br />- TapBBS 버젼 정보</li>
+            </ul>
+
+		</div>
+
+		<div class="sidenav">
+
+			<h1>Short cut</h1>
+			<ul>
+				<li><a href="#./appication">./appication</a></li>
+				<li><a href="#./avatars">./avatars</a></li>
+				<li><a href="#./captcha">./captcha</a></li>
+				<li><a href="#./front_end">./front_end</a></li>
+				<li><a href="#./manual">./manual</a></li>
+				<li><a href="#./system">./system</a></li>
+				<li><a href="#./uploads">./uploads</a></li>
+				<li><a href="#./">./</a></li>
+			</ul>
+
+		</div>
+	
+		<div class="clearer">&nbsp;</div>
+
+	</div>
+
+</div>
+
+<div class="footer">
+
+	<div class="left">Copyright &copy; <a href="http://zzanlab.com" target="_blank">ZzanLAB</a>.</div>
+	
+	<div class="right"><a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a></div>
+	
+	<div class="clearer">&nbsp;</div>
+
+</div>
+
+</body>
+
+</html>

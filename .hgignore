@@ -1,0 +1,15 @@
+syntax: glob
+syntax: regexp
+.idea
+CI_phpStorm.php
+application/cache
+application/config/database.php
+application/config/gd.php
+application/config/trigger.php
+application/logs
+^avatars$
+^captcha$
+front_end/themes/mobile/default/_compile
+front_end/themes/pc/default/_compile
+^uploads$
+tapbbs.mwb.bak

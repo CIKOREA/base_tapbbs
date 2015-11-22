@@ -1,0 +1,42 @@
+#
+# robots.txt
+#
+# This file is to prevent the crawling and indexing of certain parts
+# of your site by web crawlers and spiders run by sites like Yahoo!
+# and Google. By telling these "robots" where not to go on your site,
+# you save bandwidth and server resources.
+#
+# This file will be ignored unless it is at the root of your host:
+# Used:    http://example.com/robots.txt
+# Ignored: http://example.com/site/robots.txt
+#
+# For more information about the robots.txt standard, see:
+# http://www.robotstxt.org/wc/robots.html
+#
+# For syntax checking, see:
+# http://www.sxw.org.uk/computing/robots/check.html
+
+User-agent: *
+Crawl-delay: 10
+# Directories
+Disallow: /application/
+Disallow: /avatars/
+Disallow: /captcha/
+Disallow: /system/
+Disallow: /uploads/
+Disallow: /front_end/
+# Files
+Disallow: /license.txt
+Disallow: /license_tapbbs.txt
+Disallow: /version.txt
+Disallow: /sql.create.table.txt
+Disallow: /sql.create.trigger.txt
+Disallow: /sql.insert.txt
+Disallow: /sql.upgrade.1.0.0.txt
+Disallow: /tapbbs.mwb
+# Paths (clean URLs)
+Disallow: /admin/
+Disallow: /search/
+Disallow: /user/
+Disallow: /block/
+Disallow: /js/

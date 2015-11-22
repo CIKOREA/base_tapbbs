@@ -1,0 +1,731 @@
+/*@font-face {
+    font-family: Droid Sans;
+    src: url('../fonts/DroidSans-webfont.eot');
+    src: local("Droid Sans"), url('../fonts/DroidSans-webfont.woff');
+}
+
+@font-face {
+    font-family: News Cycle;
+    src: url('../fonts/NewsCycle-Regular.eot');
+    src: local("News Cycle"), url('../fonts/NewsCycle-Regular.ttf');
+}*/
+
+@font-face {
+    font-family:NanumBarunGothic;
+    font-style:normal;
+    font-weight: normal;
+    src:url('../../../../third_party/font/Nanum/NanumBarunGothic.eot');
+    src:local('☺'), url('../../../../third_party/font/Nanum/NanumBarunGothic.woff') format('woff');
+}
+
+@font-face {
+    font-family:NanumBarunGothicBold;
+    font-style:normal;
+    font-weight: normal;
+    src:url('../../../../third_party/font/Nanum/NanumBarunGothicBold.eot');
+    src:local('☺'), url('../../../../third_party/font//Nanum/NanumBarunGothicBold.woff') format('woff');
+}
+
+html {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* tell the browser to render HTML 5 elements as block */
+article, aside, figure, footer, header, hgroup, nav, section {
+    display:block;
+}
+
+body {
+    font: normal .80em NanumBarunGothic, 'Droid Sans', arial, sans-serif;
+    background: #F9F9F9;
+    color: #444;
+}
+
+p {
+    /*padding: 0 0 16px 0;*/
+    line-height: 1.7em;
+}
+
+img {
+    border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #362C20;
+    letter-spacing: 0em;
+    padding: 0 0 5px 0;
+    text-rendering: auto !important;
+}
+
+h1, h2, h3 {
+    font: normal 140% NanumBarunGothic, 'Verdana, Tahoma, News Cycle', arial;
+    margin: 0 0 5px 0;
+    padding: 5px 0 5px 0;
+    color: #222;
+}
+
+h2 {
+    font-size: 160%;
+    padding: 9px 0 5px 0;
+}
+
+h3 {
+    font-size: 120%;
+    font-weight:bold;
+    padding: 2px 0 0 0;
+}
+
+h4, h6 {
+    color: #555;
+    padding: 0 0 5px 0;
+    font: normal 120% NanumBarunGothic, 'Droid Sans', arial, sans-serif;
+}
+
+h5, h6 {
+    color: #999;
+    font: italic 100% NanumBarunGothic, 'Droid Sans', arial;
+    padding: 0 0 15px 0;
+}
+
+h6 {
+    font: normal 100% NanumBarunGothic, 'Droid Sans', arial;
+}
+
+a, a:hover {
+    outline: none;
+    text-decoration: none;
+    color: #58B5D6;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+blockquote {
+    margin: 20px 0;
+    padding: 10px 20px 0 20px;
+    border: 1px solid #E5E5DB;
+    background: #FFF;
+}
+
+ul {
+    margin: 2px 0 22px 17px;
+}
+
+ul li {
+    list-style-type: circle;
+    margin: 0 0 6px 0;
+    padding: 0 0 4px 5px;
+    line-height: 1.5em;
+}
+
+ol {
+    margin: 8px 0 22px 20px;
+}
+
+ol li {
+    margin: 0 0 11px 0;
+}
+
+.left {
+    float: left;
+    width: auto;
+    margin-right: 10px;
+}
+
+.right {
+    float: right;
+    width: auto;
+    margin-left: 10px;
+}
+
+.center {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+}
+
+#main, #container, #logo, #site_content, footer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main {
+    background: #EFF3E5;
+}
+
+
+header {
+    background: #444 url(../img/logo.png) no-repeat;
+    height: 220px;
+}
+
+#logo {
+    width: 1000px;
+    height: 180px;
+    background: transparent;
+    color: #888;
+    padding: 0 0 20px 0;
+}
+
+#logo #logo_text {
+    width: 500px;
+    left: 0;
+    padding: 10px 20px 20px 0;
+}
+
+#logo h1, #logo h2 {
+    font: normal 250% NanumBarunGothic, 'News Cycle', arial, sans-serif;
+    border-bottom: 0;
+    text-transform: none;
+    margin: 0;
+}
+
+#logo_text h1, #logo_text h1 a, #logo_text h1 a:hover {
+    padding: 0;
+    color: #555;
+    text-decoration: none;
+}
+
+#logo_text h1 a .logo_colour {
+    color: #09D4FF;
+}
+
+#logo_text a:hover .logo_colour {
+    color: #FFF;
+}
+
+#logo_text h2 {
+    font-size: 140%;
+    padding: 0 0 0 0;
+    color: #777;
+}
+
+nav {
+    height: 44px;
+    margin: -24px auto 0 auto;
+    color: #fef4e9;
+    background: #555747;
+}
+
+#menu_container {
+    width: 1000px;
+    margin: 0 auto 0 auto;
+}
+
+#site_content {
+    width: 1000px;
+    overflow: hidden;
+    margin: 0px auto 0 auto;
+    padding: 0px 0 25px 0;
+    text-shadow: 0 1px #FFF;
+}
+
+#sidebar_container {
+    float: right;
+    width: 234px;
+    margin-top: 20px;
+}
+
+.sidebar {
+    width: 200px;
+    margin: 0 0 16px 0;
+    background: #DFE7CB; /* Show a solid color for older browsers */
+    border: 1px solid #CCC;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+    padding: 0 15px 5px 13px;
+}
+
+.sidebar h3, .content h1 {
+    padding: 0 15px 20px 0;
+    font: 200% NanumBarunGothic, 'News Cycle', arial, sans-serif;
+    text-shadow:  #FFF 0 1px;
+    margin: 0 1px;
+}
+
+.sidebar h3 {
+    padding: 4px 15px 9px 0;
+    font: 200% NanumBarunGothic, 'News Cycle', arial, sans-serif;
+}
+
+.sidebar ul {
+    margin: 0 0 15px 0;
+}
+
+.sidebar li a, .sidebar li a:hover {
+    color: #555;
+    text-decoration: none;
+}
+
+.sidebar li a:hover {
+    text-decoration: underline;
+}
+
+.sidebar_item, .content_item {
+    padding: 15px 0;
+}
+
+.content {
+    text-align: left;
+    width: 750px;
+    margin: 0 0 15px 0;
+    float: left;
+    font-size: 100%;
+    padding: 0 0 0 0;
+}
+
+.content ul {
+    margin: 2px 0 2px 0px;
+}
+
+.content ul li, .sidebar ul li {
+    list-style-type: none;
+    /*background: url(../img/bullet.png) no-repeat;*/
+    background: url(../img/li-icon.gif) no-repeat;
+    margin: 0 0 0 0;
+    /*padding: 0 0 4px 28px;*/
+    padding: 0 0 4px 18px;
+    line-height: 1.5em;
+}
+
+footer {
+    font: 100% NanumBarunGothic, 'Droid Sans', arial, sans-serif;
+    height: 188px;
+    padding: 28px 0 5px 0;
+    text-align: center;
+    background: #555747;
+    color: #FFF;
+    margin: 0;
+    border-top: 6px solid #82CC2A;
+}
+
+footer p {
+    line-height: 1.7em;
+    padding: 0 0 10px 0;
+}
+
+footer a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+.form_settings {
+    margin: 15px 0 0 0;
+}
+
+.form_settings p {
+    padding: 0 0 4px 0;
+}
+
+.form_settings span {
+    float: left;
+    width: 200px;
+    text-align: left;
+}
+
+.form_settings input, .form_settings textarea {
+    padding: 5px;
+    width: 299px;
+    font: 100% NanumBarunGothic, 'Droid Sans', arial;
+    border: 1px solid #E5E5DB;
+    background: #FFF;
+    color: #47433F;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+}
+
+.form_settings .submit {
+    font: 100% NanumBarunGothic, 'Droid Sans', arial;
+    border: 0;
+    width: 99px;
+    margin: 0 0 0 212px;
+    height: 33px;
+    padding: 2px 0 3px 0;
+    cursor: pointer;
+    background: #555747;
+    color: #FFF;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+}
+
+.form_settings textarea, .form_settings select {
+    font: 100% NanumBarunGothic, 'Droid Sans', arial;
+    width: 299px;
+}
+
+.form_settings select {
+    width: 310px;
+}
+
+.form_settings .checkbox {
+    margin: 4px 0;
+    padding: 0;
+    width: 14px;
+    border: 0;
+    background: none;
+}
+
+.separator {
+    width: 100%;
+    height: 0;
+    border-top: 1px solid #D9D5CF;
+    border-bottom: 1px solid #FFF;
+    margin: 0 0 20px 0;
+}
+
+table {
+    margin: 10px 0 30px 0;
+    border-spacing: 0px;
+}
+
+table tr th, table tr td {
+    background: #555;
+    color: #FFF;
+    padding: 7px 4px;
+    text-align: left;
+    text-shadow: none;
+}
+
+table tr td {
+    background: #DDD;
+    color: #47433F;
+    border-top: 1px solid #FFF;
+}
+
+table.data-table {
+    border: 1px
+    solid #CCB;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size:10pt;
+    font-family: NanumBarunGothic, Verdana, Tahoma;
+}
+
+table.data-table
+th {
+    background: #F0F0F0;
+    border: 1px
+    solid #DDD;
+    color: #555;
+    text-align: center
+}
+table.data-table th.text_left {text-align:left;padding-left:10px}
+table.data-table th.text_right {text-align:right;padding-right:10px}
+table.data-table th.center {text-align:center}
+table.data-table th.border_none {border:none}
+
+table.data-table
+tr {
+    border-bottom: 1px solid #DDD
+}
+
+table.data-table td, table
+th {
+    padding: 10px
+}
+
+table.data-table
+td {
+    background: #F6F6F6;
+    border: 1px
+    solid #DDD
+}
+table.data-table td.text_left {text-align:left;padding-left:10px}
+table.data-table td.text_right {text-align:right;padding-right:10px}
+table.data-table td.text_center {text-align:center}
+table.data-table td.border_none{border:none}
+
+table.data-table tr.even
+td {
+    background: #FCFCFC
+}
+
+/* scroll to top */
+#scroll {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    bottom: 15px;
+    right: 0;
+    background: red;
+    padding: 0;
+}
+
+#scroll a {
+    float: right;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#scroll a img {
+    float: right;
+    padding: 0 0 0 0;
+    margin: 0;
+}
+
+
+
+
+
+/**
+Stylesheet for SooperFish by www.SooperThemes.com
+Author: Jurriaan Roelofs
+**/
+
+/* Configuration of menu width */
+html body ul.sf-menu ul,html body ul.sf-menu ul li {
+    width: 180px;
+}
+
+html body ul.sf-menu ul ul {
+    margin: 0 0 0 220px;
+}
+
+/* Framework for proper showing/hiding/positioning */
+ul.sf-menu,ul.sf-menu * {
+    margin: 0;
+    padding: 0;
+}
+
+ul.sf-menu {
+    display: block;
+    position: relative;
+}
+
+ul.sf-menu li {
+    display: block;
+    list-style: none;
+    float: left;
+    position: relative;
+}
+
+ul.sf-menu li:hover {
+    visibility: inherit; /* fixes IE7 'sticky bug' */
+}
+
+ul.sf-menu a {
+    display: block;
+    position: relative;
+}
+
+ul.sf-menu ul {
+    position: absolute;
+    left: 0;
+    width: 180px;
+    top: auto;
+    left: -999999px;
+}
+
+ul.sf-menu ul a {
+    zoom: 1; /* IE6/7 fix */
+}
+
+ul.sf-menu ul li {
+    float: left; /* Must always be floated otherwise there will be a rogue 1px margin-bottom in IE6/7 */
+    width: 180px;
+}
+
+ul.sf-menu ul ul {
+    top: 0;
+    margin: 0 0 0 150px;
+}
+
+ul.sf-menu li:hover ul,ul.sf-menu li:focus ul,ul.sf-menu li.sf-hover ul,
+ul.sf-menu ul li:hover ul,ul.sf-menu ul li:focus ul,ul.sf-menu ul li.sf-hover ul,
+ul.sf-menu ul ul li:hover ul,ul.sf-menu ul ul li:focus ul,ul.sf-menu ul ul li.sf-hover ul,
+ul.sf-menu ul ul ul li:hover ul,ul.sf-menu ul ul ul li:focus ul,ul.sf-menu ul ul ul li.sf-hover ul {
+    left: auto;
+}
+
+ul.sf-menu li:hover ul ul,ul.sf-menu li:focus ul ul,ul.sf-menu li.sf-hover ul ul,
+ul.sf-menu ul li:hover ul ul,ul.sf-menu ul li:focus ul ul,ul.sf-menu ul li.sf-hover ul ul,
+ul.sf-menu ul ul li:hover ul ul,ul.sf-menu ul ul li:focus ul ul,ul.sf-menu ul ul li.sf-hover ul ul,
+ul.sf-menu ul ul ul li:hover ul ul,ul.sf-menu ul ul ul li:focus ul ul,ul.sf-menu ul ul ul li.sf-hover ul ul {
+    left: -999999px;
+}
+
+/* autoArrows CSS */
+span.sf-arrow {
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    top: 20px;
+    right: -2px;
+    display: block;
+    background: url(../img/arrows-white.png) no-repeat 0 0;
+    overflow: hidden; /* making sure IE6 doesn't overflow and expand the box */
+    font-size: 1px;
+}
+
+ul ul span.sf-arrow {
+    right: 10;
+    top: 20px;
+    background-position: 0 100%;
+}
+
+/* Theming the menu */
+ul#nav {
+    float: right;
+}
+
+ul#nav ul {
+    background: #555747;
+    margin-top: 5px;
+    padding-bottom: 15px;
+}
+
+ul#nav li a {
+    padding:14px 12px 2px 15px;
+    font: 11pt NanumBarunGothic, 'Verdana, Tahoma, News Cycle', arial, sans-serif;
+    text-shadow: 1px 1px #222;
+    text-decoration: none;
+    color:#FFF;
+    margin-right: 2px;
+}
+
+ul#nav li a:hover,ul#nav li a:focus {
+    color: #FFF;
+    text-decoration: underline;
+}
+
+.rss_btn{
+    margin-top:25px;
+}
+
+.avatar{
+    margin-bottom:10px;
+}
+
+.comment_count{color:#ff6600;font-weight:bold}
+.comment_btn{
+    margin-top:10px;
+}
+
+.login_container{
+    margin-top:100px;
+}
+
+.keep_login_label{
+    display:inline-block;
+    margin:10px 0;
+    cursor:text;
+}
+
+.find_password_container{
+    margin-top:20px;
+}
+
+#modify_div input{
+    margin-right:5px;
+    vertical-align: top;
+}
+
+#modify_div label {
+    display:inline-block;
+    margin-right:10px;
+}
+
+#tapbbs_navigation{
+    margin:5px 0 0 0;
+}
+
+.clearer{clear:both}
+.clearfix{clear:both}
+
+.gallery {
+    margin:0px 0 50px 0 !important;
+}
+.gallery li{
+    position:relative;
+    background:#fff !important;
+    float:left;
+    width:125px;
+    height:125px;
+    margin:5px !important;
+    padding:5px !important;
+    border:2px solid #ccc;
+    overflow:hidden;
+}
+.gallery img.gallery_image {
+    width:125px;
+    height:125px;
+}
+.gallery div.description{
+    position:absolute;
+    top:86px;
+    width:121px;
+    height:40px;
+    padding:2px;
+    background:#fbef7e;
+}
+
+.webzine_description {
+    vertical-align: top;
+}
+
+.webzine_description ul {
+    background:none !important;
+    margin:0 0 20px 0 !important;
+}
+
+.webzine_description li {
+    background: none !important;
+    display : inline-block !important;
+    padding:0 0 0 5px !important;
+    width:120px;
+    border-right:1px dotted #666;
+    font-size:9pt;
+}
+
+.webzine_image {
+    width : 120px;
+    height:120px;
+}
+
+select, input {
+    margin-bottom:1px !important;
+}
+
+#message_count_div{
+    position: fixed;
+    bottom:0;
+    right:0;
+    width:150px;
+    background:#fff;
+    padding:15px;
+    border:3px solid #444;
+}
+
+.contents_title_container {
+    margin:15px 0 10px 0;
+    font-family:gulim;
+    height:40px;
+    line-height:36px;
+    font-size:20pt;
+    font-weight:bold;
+    border-bottom:1px solid #DFDFDF;
+    font-family: NanumBarunGothicBold;
+}
+.contents_title_container .divider {float:left;color:#13D578;margin-right:10px}
+.contents_title_container .title {float:left}
+.contents_title_container .buttons {float:right}
+
+#tapbbs_user_info .btn-logout {display: inline}
+#tapbbs_user_info div {display: inline}
+#tapbbs_user_info ul li {list-style: none; padding:3px 0 3px 0;margin:0}
+#tapbbs_user_info .dropdown-menu {left:-80px;min-width:140px}
+#tapbbs_user_info .dropdown-menu > a{display:block}

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta name="description" content="description"/>
+<meta name="keywords" content="keywords"/> 
+<meta name="author" content="author"/> 
+<link rel="stylesheet" type="text/css" href="default.css" media="screen"/>
+<link rel="icon" href="favicon_tapbbs.ico" />
+<title>TapBBS Manual</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="header">
+		
+		<div class="title">
+			<h1>TapBBS v1.0.0 Manual</h1>
+		</div>
+
+		<div class="navigation">
+            <a href="index.html">기본</a>
+            <a href="structure.html">구조</a>
+            <a href="functions.html">주요기능</a>
+            <a href="install.html">설치방법</a>
+            <a href="theme.html">테마작업</a>
+            <a href="faq.html">FAQ</a>
+			<div class="clearer"><span></span></div>
+		</div>
+
+	</div>
+
+	<div class="main">
+		
+		<div class="content">
+
+            <h1>3분 게시판, 초간단 MOBILE && PC 게시판.</h1>
+            <div class="descr">TapBBS - ZzanLAB</div>
+
+			<h1 id="theme">테마작업</h1>
+
+            <ul>
+                <li>관리자페이지 > 설정 > 테마
+					<br />
+					<img src="./img/themes_step01.png" width="800" />
+				</li>
+				<li>기본적으로 위와 같이 MOBILE, PC 각각 default 테마가 등록되어 있습니다.</li>
+				<li>"사용여부"는 MOBILE, PC 각각 1개씩만 선택할 수 있습니다.</li>
+				<li>[수정] 버튼은 테마명, 폴더명, 사용여부를 수정하는 버튼이지 디자인 자체를 수정하는 기능은 아닙니다.</li>
+				<li>[미리보기] 버튼으로 실제 테마 사용 전에, 확인해 볼 수 있습니다.</li>
+				<li>[복사] 버튼으로 동일한 테마를 복사하여 디자인을 수정해 보실 수도 있습니다.
+					<br />
+					- 단, 서버설정(SAFE_MODE)이나 권한 문제로 실패 알림이 나올 수 있습니다.
+					<br />
+					- 성공하면 다음 화면처럼 바뀌고, 아래의 경우 front_end/themes/mobile/default_copy_1421141438 이라는 폴더로 복사되었음을 확인하실 수 있습니다.
+					<br />
+						<img src="./img/themes_step02.png" width="800" />
+				</li>
+				<li>아니면, 수동으로 테마폴더를 만들 수 있습니다. 이때는 다음의 순서를 지키셔야 합니다.
+					<br />
+					1. front_end/themes/mobile||pc/ 에 default 폴더나 기존에 사용하시던 폴더를 복사하고 적절히 폴더명을 정합니다.
+					<br />
+					2. 위에서 생성한 폴더명을 기입하여 테마정보를 등록합니다. (폴더가 존재하지 않으면 등록되지 않습니다.)
+					<br />
+						<img src="./img/themes_step03.png" width="800" />
+				</li>
+				<li>이렇게 생성 후에, 메뉴얼 > 구조 > ./front_end 를 참고하여 디자인 파일을 수정하시면 됩니다.</li>
+			</ul>
+		</div>
+
+		<div class="sidenav">
+
+			<h1>Short cut</h1>
+			<ul>
+				<li><a href="#theme">테마작업</a></li>
+			</ul>
+
+		</div>
+	
+		<div class="clearer">&nbsp;</div>
+
+	</div>
+
+</div>
+
+<div class="footer">
+
+	<div class="left">Copyright &copy; <a href="http://zzanlab.com" target="_blank">ZzanLAB</a>.</div>
+	
+	<div class="right"><a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a></div>
+	
+	<div class="clearer">&nbsp;</div>
+
+</div>
+
+</body>
+
+</html>

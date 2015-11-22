@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+
+	RewriteRule _template/.*\.tpl / [R=403,L]
+
+	RewriteCond $1 !^(license_tapbbs\.txt|manual|index\.php|facebook_thumbnail\.png|front_end|captcha|uploads|avatars|favicon\.ico|favicon_tapbbs\.ico|apple-touch-icon_tapbbs\.png|apple-touch-icon\.png|robots\.txt)
+	RewriteRule ^(.*)$ ./index.php/$1 [L]
+</IfModule>

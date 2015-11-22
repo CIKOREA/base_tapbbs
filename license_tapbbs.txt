@@ -1,0 +1,35 @@
+Copyright (c) 2013, ZzanLAB.com
+All rights reserved.
+
+TapBBS is under BSD license.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: 
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+본 프로그램(TapBBS)는 BSD 라이센스를 사용합니다.
+본 프로그램을 사용하는 모든 프로그램은 아래의 사항을 준수하실 때만
+자유롭게 배포하실 수 있습니다.
+
+1. 재배포되는 소스코드는 반드시 본 라이센스 파일을 포함해야합니다.
+2. 본 라이센스파일은 수정되지 않아야 합니다.
+
+제작자인 ZzanLAB은 본 프로그램을 사용할때 발생할 수 있는 어떠한 문제나 
+금전적 손실에 대해서도 배상할 책임이 없습니다.
+

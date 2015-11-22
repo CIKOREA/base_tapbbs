@@ -1,0 +1,930 @@
+-- -----------------------------------------------------
+-- Table `tb_users_group`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_group` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_group` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `group_name` VARCHAR(64) NOT NULL COMMENT '그룹명' ,
+  `icon_path` VARCHAR(255) NULL COMMENT '아이콘 경로' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '마지막 수정 접근 IP' ,
+  `is_used` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원그룹';
+
+CREATE INDEX `idx_users_group__is_used` ON `tb_users_group` (`is_used` ASC) ;
+
+CREATE UNIQUE INDEX `group_name_UNIQUE` ON `tb_users_group` (`group_name` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_group__exec_user_idx` ON `tb_users_group` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `user_id` VARCHAR(32) NOT NULL COMMENT '회원 ID' ,
+  `password` VARCHAR(64) NULL COMMENT '비밀번호' ,
+  `super_secured_password` VARCHAR(255) NULL COMMENT '비밀번호 (보안강화)' ,
+  `new_password` VARCHAR(255) NULL COMMENT '임시 새 비밀번호' ,
+  `new_password_timestamp` INT(10) UNSIGNED NULL COMMENT '임시 새 비밀버호 요청 time()' ,
+  `level` TINYINT(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '레벨 (큰 수가 상위 ~99)' ,
+  `group_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원그룹' ,
+  `name` VARCHAR(64) NOT NULL COMMENT '실명' ,
+  `nickname` VARCHAR(64) NOT NULL COMMENT '닉네임' ,
+  `message_receive_type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '쪽지수신방법 (0:전체거부,1:전체수신,2:친구만수신)' ,
+  `email` VARCHAR(128) NOT NULL COMMENT '이메일' ,
+  `timezone` VARCHAR(4) NOT NULL COMMENT '타임존' ,
+  `article_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '글 작성 수' ,
+  `comment_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '코멘트 작성 수' ,
+  `vote_send_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '추천한 수' ,
+  `vote_receive_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '추천받은 수' ,
+  `point` INT(10) NOT NULL DEFAULT 0 COMMENT '포인트 (마이너스 가능)' ,
+  `avatar_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '아바타 사용 (0:미사용, 1:사용)' ,
+  `memo` TEXT NULL COMMENT '개인메모장' ,
+  `timestamp_insert` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `timestamp_update` INT(10) UNSIGNED NULL COMMENT '마지막수정 time()' ,
+  `timestamp_delete` INT(10) UNSIGNED NULL COMMENT '탈퇴 time()' ,
+  `timestamp_login` INT(10) UNSIGNED NULL COMMENT '마지막로그인 time()' ,
+  `timestamp_post` INT(10) UNSIGNED NULL COMMENT '마지막 글/코멘트 time()' ,
+  `timestamp_update_password` INT(10) UNSIGNED NULL COMMENT '비번변경 time()' ,
+  `client_ip_insert` VARCHAR(64) NOT NULL COMMENT '삽입 접근 IP' ,
+  `client_ip_update` VARCHAR(64) NULL COMMENT '마지막수정 접근 IP' ,
+  `client_ip_delete` VARCHAR(64) NULL COMMENT '탈퇴 접근 IP' ,
+  `client_ip_login` VARCHAR(64) NULL COMMENT '마지막로그인 접근 IP' ,
+  `client_ip_post` VARCHAR(64) NULL COMMENT '마지막 글/코멘트 접근 IP' ,
+  `client_ip_update_password` VARCHAR(64) NULL COMMENT '비번변경 접근 IP' ,
+  `status` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '상태 (0:탈퇴, 1:정상, 2:차단)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원테이블';
+
+CREATE UNIQUE INDEX `user_id_UNIQUE` ON `tb_users` (`user_id` ASC) ;
+
+CREATE UNIQUE INDEX `nickname_UNIQUE` ON `tb_users` (`nickname` ASC) ;
+
+CREATE INDEX `idx_users__level` ON `tb_users` (`level` ASC) ;
+
+CREATE INDEX `idx_users__name` ON `tb_users` (`name` ASC) ;
+
+CREATE INDEX `idx_users__status` ON `tb_users` (`status` ASC) ;
+
+CREATE INDEX `idx_users__timestamp_login` ON `tb_users` (`timestamp_login` ASC) ;
+
+CREATE INDEX `idx_users__article_count` ON `tb_users` (`article_count` ASC) ;
+
+CREATE INDEX `idx_users__comment_count` ON `tb_users` (`comment_count` ASC) ;
+
+CREATE INDEX `idx_users__vote_send_count` ON `tb_users` (`vote_send_count` ASC) ;
+
+CREATE INDEX `idx_users__vote_receive_count` ON `tb_users` (`vote_receive_count` ASC) ;
+
+CREATE INDEX `idx_users__point` ON `tb_users` (`point` ASC) ;
+
+CREATE INDEX `idx_users__timestamp_post` ON `tb_users` (`timestamp_post` ASC) ;
+
+CREATE UNIQUE INDEX `email_UNIQUE` ON `tb_users` (`email` ASC) ;
+
+CREATE INDEX `fk_users_group__idx__vs__users__group_idx` ON `tb_users` (`group_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_setting`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_setting` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_setting` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `parameter` VARCHAR(128) NOT NULL COMMENT '파라메터' ,
+  `value` VARCHAR(1000) NOT NULL COMMENT '값' ,
+  `default_bbs` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '게시판기본설정여부 (0:일반,1:게시판기본설정)' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '마지막 수정 접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '환경설정';
+
+CREATE UNIQUE INDEX `parameter_UNIQUE` ON `tb_setting` (`parameter` ASC) ;
+
+CREATE INDEX `idx_setting__default_bbs` ON `tb_setting` (`default_bbs` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__setting__exec_user_idx` ON `tb_setting` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_message` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_message` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `sender_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx (발신자)' ,
+  `receiver_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx (수신자)' ,
+  `title` VARCHAR(255) NULL COMMENT '제목' ,
+  `contents` TEXT NOT NULL COMMENT '내용' ,
+  `timestamp_send` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time() (발신시각)' ,
+  `timestamp_receive` INT(10) UNSIGNED NULL COMMENT '읽은 time()' ,
+  `client_ip_send` VARCHAR(64) NOT NULL COMMENT '접근 IP (보낸이)' ,
+  `client_ip_receive` VARCHAR(64) NULL COMMENT '접근 IP (받은이)' ,
+  `is_read` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '수신여부 (0:읽지않음, 1:읽음)' ,
+  `is_deleted_sender` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '발신자 삭제여부 (0:정상, 1:삭제)' ,
+  `is_deleted_receiver` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '수신자 삭제여부 (0:정상, 1:삭제)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '메시지 (쪽지)';
+
+CREATE INDEX `idx_users_message__is_deleted_sender` ON `tb_users_message` (`is_deleted_sender` ASC) ;
+
+CREATE INDEX `idx_users_message__is_deleted_receiver` ON `tb_users_message` (`is_deleted_receiver` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_message__sender_user_idx` ON `tb_users_message` (`sender_user_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_message__receiver_user_idx` ON `tb_users_message` (`receiver_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_id` VARCHAR(64) NOT NULL COMMENT '게시판 고유 ID' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '삽입 회원 idx' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시판 기본정보 (삽입만 가능)';
+
+CREATE UNIQUE INDEX `bbs_id_UNIQUE` ON `tb_bbs` (`bbs_id` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs__exec_user_idx` ON `tb_bbs` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_setting`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_setting` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_setting` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `parameter` VARCHAR(128) NOT NULL COMMENT '파라메터' ,
+  `value` VARCHAR(1000) NOT NULL COMMENT '값' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '마지막 수정 접근 IP' ,
+  PRIMARY KEY (`idx`, `bbs_idx`, `parameter`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시판 설정';
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_setting__bbs_idx` ON `tb_bbs_setting` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_setting__exec_user_idx` ON `tb_bbs_setting` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_category` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_category` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `category_name` VARCHAR(64) NOT NULL COMMENT '카테고리명' ,
+  `sequence` INT(10) UNSIGNED NULL COMMENT '순서' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '마지막 수정 접근 IP' ,
+  `is_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시판 카테고리';
+
+CREATE INDEX `idx_bbs_category__is_used` ON `tb_bbs_category` (`is_used` ASC) ;
+
+CREATE INDEX `idx_bbs_category__sequence` ON `tb_bbs_category` (`sequence` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_category__exec_user_idx` ON `tb_bbs_category` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_category__bbs_idx` ON `tb_bbs_category` (`bbs_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_article`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_article` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_article` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `category_idx` INT(10) UNSIGNED NULL COMMENT '카테고리 idx' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `title` VARCHAR(255) NOT NULL COMMENT '제목' ,
+  `comment_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '코멘트 갯수' ,
+  `vote_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '추천 받은 갯수' ,
+  `scrap_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '스크랩 해간 갯수' ,
+  `timestamp_insert` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `timestamp_update` INT(10) UNSIGNED NULL COMMENT '마지막 수정 time()' ,
+  `client_ip_insert` VARCHAR(64) NOT NULL COMMENT '삽입 접근 IP' ,
+  `client_ip_update` VARCHAR(64) NULL COMMENT '마지막 수정 접근 IP' ,
+  `html_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'HTML 사용여부 (0:미사용,1:사용)' ,
+  `is_notice` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '공지사항 여부 (1:공지사항,0:일반)' ,
+  `is_secret` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '비밀글 여부 (1:비밀글,0:일반)' ,
+  `is_deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (1:삭제,0:일반)' ,
+  `agent_insert` CHAR(1) NOT NULL DEFAULT 'M' COMMENT '등록 agent (M:mobile,P:pc)' ,
+  `agent_last_update` CHAR(1) NULL COMMENT '마지막수정 agent (M:mobile,P:pc)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 기본정보';
+
+CREATE INDEX `idx_bbs_article__title` ON `tb_bbs_article` (`title` ASC) ;
+
+CREATE INDEX `idx_bbs_article__timestamp_insert` ON `tb_bbs_article` (`timestamp_insert` ASC) ;
+
+CREATE INDEX `idx_bbs_article__is_deleted` ON `tb_bbs_article` (`is_deleted` ASC) ;
+
+CREATE INDEX `idx_bbs_article__is_notice` ON `tb_bbs_article` (`is_notice` ASC) ;
+
+CREATE INDEX `idx_bbs_article__is_secret` ON `tb_bbs_article` (`is_secret` ASC) ;
+
+CREATE INDEX `idx_bbs_article__agent_insert` ON `tb_bbs_article` (`agent_insert` ASC) ;
+
+CREATE INDEX `idx_bbs_article__agent_last_update` ON `tb_bbs_article` (`agent_last_update` ASC) ;
+
+CREATE INDEX `fk_bbs_category__idx__vs__bbs_article__category_idx` ON `tb_bbs_article` (`category_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_article__user_idx` ON `tb_bbs_article` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_article__bbs_idx` ON `tb_bbs_article` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_article__exec_user_idx` ON `tb_bbs_article` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_comment` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_comment` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `comment` TEXT NOT NULL COMMENT '코멘트' ,
+  `vote_count` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '추천 받은 갯수' ,
+  `timestamp_insert` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `timestamp_update` INT(10) UNSIGNED NULL COMMENT '마지막 수정 time()' ,
+  `client_ip_insert` VARCHAR(64) NOT NULL COMMENT '삽입 접근 IP' ,
+  `client_ip_update` VARCHAR(64) NULL COMMENT '마지막 수정 접근 IP' ,
+  `is_deleted` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '삭제 여부 (1:삭제,0:일반)' ,
+  `agent_insert` CHAR(1) NOT NULL DEFAULT 'M' COMMENT '등록 agent (M:mobile,P:pc)' ,
+  `agent_last_update` CHAR(1) NULL COMMENT '마지막수정 agent (M:mobile,P:pc)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 코멘트';
+
+CREATE INDEX `idx_bbs_comment__timestamp_insert` ON `tb_bbs_comment` (`timestamp_insert` ASC) ;
+
+CREATE INDEX `idx_bbs_comment__is_deleted` ON `tb_bbs_comment` (`is_deleted` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_comment__article_idx` ON `tb_bbs_comment` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_comment__bbs_idx` ON `tb_bbs_comment` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_comment__user_idx` ON `tb_bbs_comment` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_comment__exec_user_idx` ON `tb_bbs_comment` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `idx_bbs_comment__agent_insert` ON `tb_bbs_comment` (`agent_insert` ASC) ;
+
+CREATE INDEX `idx_bbs_comment__agent_last_update` ON `tb_bbs_comment` (`agent_last_update` ASC) ;
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_vote`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_vote` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_vote` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NULL COMMENT '연관 게시물 idx' ,
+  `comment_idx` INT(10) UNSIGNED NULL COMMENT '연관 코멘트 idx' ,
+  `user_idx_sender` INT(10) UNSIGNED NOT NULL COMMENT '추천 실행 회원 idx' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 추천';
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_vote__bbs_idx` ON `tb_bbs_vote` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_vote__article_idx` ON `tb_bbs_vote` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_comment__idx__vs__bbs_vote__comment_idx` ON `tb_bbs_vote` (`comment_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_vote__user_idx_sender` ON `tb_bbs_vote` (`user_idx_sender` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_point`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_point` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_point` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx' ,
+  `point` INT(10) NOT NULL COMMENT '포인트 (마이너스 가능)' ,
+  `article_idx` INT(10) UNSIGNED NULL COMMENT '관련글 idx' ,
+  `comment_idx` INT(10) UNSIGNED NULL COMMENT '관련코멘트 idx' ,
+  `vote_idx` INT(10) UNSIGNED NULL COMMENT '추천정보  idx' ,
+  `comment` VARCHAR(255) NULL COMMENT '내용' ,
+  `exec_user_idx` INT(10) UNSIGNED NULL COMMENT '실행 회원 idx - 운영자 혹은 선물' ,
+  `exec_timestamp` INT(10) UNSIGNED NULL COMMENT '실행 time() - 운영자 혹은 선물' ,
+  `exec_client_ip` VARCHAR(64) NULL COMMENT '실행 접근 IP - 운영자 혹은 선물' ,
+  `is_deleted` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '삭제여부(1:삭제, 0:정상)' ,
+  `exec_user_idx_delete` INT(10) UNSIGNED NULL COMMENT '삭제여부 변경 마지막 회원 idx' ,
+  `exec_timestamp_delete` INT(10) UNSIGNED NULL COMMENT '삭제여부 변경 마지막 time()' ,
+  `exec_client_ip_delete` VARCHAR(64) NULL COMMENT '삭제여부 변경 마지막 접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원포인트';
+
+CREATE INDEX `idx_users_point__is_deleted` ON `tb_users_point` (`is_deleted` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_point__user_idx` ON `tb_users_point` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_point__exec_user_idx` ON `tb_users_point` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__users_point__article_idx` ON `tb_users_point` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_comment__idx__vs__users_point__comment_idx` ON `tb_users_point` (`comment_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_vote__idx__vs__users_point__vote_idx` ON `tb_users_point` (`vote_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_point__exec_user_idx_delete` ON `tb_users_point` (`exec_user_idx_delete` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_friend`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_friend` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_friend` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx (친구목록 주인)' ,
+  `friend_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx (친구들)' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '친구관리 (삭제가능)';
+
+CREATE INDEX `fk_users__idx__vs__users_friend__user_idx` ON `tb_users_friend` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_friend__friend_user_idx` ON `tb_users_friend` (`friend_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_url`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_url` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_url` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx' ,
+  `article_idx` INT(10) UNSIGNED NULL COMMENT '게시물 idx (스크랩)' ,
+  `title` VARCHAR(255) NOT NULL COMMENT '제목' ,
+  `url` VARCHAR(255) NULL COMMENT 'URL' ,
+  `type` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '타입 (0:스크랩, 1:즐겨찾기)' ,
+  `timestamp_insert` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `timestamp_update` INT(10) NULL COMMENT '수정 time()' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원URL (스크랩/즐겨찾기) (삭제가능)';
+
+CREATE INDEX `idx_users_url__type` ON `tb_users_url` (`type` ASC) ;
+
+CREATE INDEX `idx_users_url__title` ON `tb_users_url` (`title` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_url__user_idx` ON `tb_users_url` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__users_url__article_idx` ON `tb_users_url` (`article_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_client_ip_access`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_client_ip_access` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_client_ip_access` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `client_ip` VARCHAR(64) NOT NULL ,
+  `timestamp` INT(10) UNSIGNED NOT NULL ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '접근 IP (삭제 가능)';
+
+CREATE INDEX `idx_client_ip_access__client_ip` ON `tb_client_ip_access` (`client_ip` ASC) ;
+
+CREATE INDEX `idx_client_ip_access__timestamp` ON `tb_client_ip_access` (`timestamp` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_client_ip_block`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_client_ip_block` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_client_ip_block` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `client_ip` VARCHAR(64) NOT NULL ,
+  `timestamp` INT(10) UNSIGNED NOT NULL ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '차단 IP (삭제 가능)';
+
+CREATE UNIQUE INDEX `client_ip_UNIQUE` ON `tb_client_ip_block` (`client_ip` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_tag`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_tag` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_tag` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `tag` VARCHAR(64) NOT NULL COMMENT '태그' ,
+  `sequence` INT(10) UNSIGNED NULL COMMENT '순서' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 태그 (삭제가능)';
+
+CREATE INDEX `idx_bbs_tag__tag` ON `tb_bbs_tag` (`tag` ASC) ;
+
+CREATE INDEX `idx_bbs_tag__sequence` ON `tb_bbs_tag` (`sequence` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_tag__article_idx` ON `tb_bbs_tag` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_tag__bbs_idx` ON `tb_bbs_tag` (`bbs_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_file`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_file` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_file` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx (개인첨부용량 체크용)' ,
+  `is_wysiwyg` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '위지윅을 통한 첨부(0 : 첨부, 1 : 위지윅 첨부)' ,
+  `original_filename` VARCHAR(255) NOT NULL COMMENT '원본 파일명' ,
+  `conversion_filename` VARCHAR(255) NOT NULL COMMENT '변경 파일명 (중복,한글)' ,
+  `mime` VARCHAR(255) NOT NULL COMMENT '파일유형' ,
+  `capacity` INT(10) UNSIGNED NOT NULL COMMENT '파일크기(byte)' ,
+  `sequence` INT(10) UNSIGNED NULL COMMENT '순서' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 첨부파일 (삭제가능)';
+
+CREATE INDEX `idx_bbs_file__sequence` ON `tb_bbs_file` (`sequence` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_file__bbs_idx` ON `tb_bbs_file` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_file__article_idx` ON `tb_bbs_file` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_file__user_idx` ON `tb_bbs_file` (`user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_file_temporary`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_file_temporary` ;
+
+CREATE TABLE IF NOT EXISTS `tb_bbs_file_temporary` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스',
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx',
+  `conversion_filename` VARCHAR(255) NOT NULL COMMENT '변경 파일명 (중복,한글)',
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()',
+  PRIMARY KEY (`idx`))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '파일업로드 임시 저장';
+
+CREATE INDEX `fk_users__idx__vs__bbs_file_temporary__user_idx` ON `tb_bbs_file_temporary` (`user_idx` ASC);
+
+CREATE INDEX `idx_bbs_file_temporary__timestamp` ON `tb_bbs_file_temporary` (`timestamp` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_hit`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_hit` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_hit` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `hit` INT(10) UNSIGNED NOT NULL COMMENT '조회수' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 조회수';
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_hit__bbs_idx` ON `tb_bbs_hit` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_hit__article_idx` ON `tb_bbs_hit` (`article_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_contents`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_contents` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_contents` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '마지막 수정 회원 idx' ,
+  `contents` TEXT NOT NULL COMMENT '내용' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '마지막 수정 접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 상세내용';
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_contents__article_idx` ON `tb_bbs_contents` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_contents__bbs_idx` ON `tb_bbs_contents` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_contents__exec_user_idx` ON `tb_bbs_contents` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_url`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_url` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_url` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `url` VARCHAR(255) NOT NULL COMMENT 'URL' ,
+  `sequence` INT(10) UNSIGNED NULL COMMENT '순서' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 참조링크 (삭제가능)';
+
+CREATE INDEX `idx_bbs_url__sequence` ON `tb_bbs_url` (`sequence` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_url__bbs_idx` ON `tb_bbs_url` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_url__article_idx` ON `tb_bbs_url` (`article_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_setting_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_setting_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_setting_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `setting_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `parameter` VARCHAR(128) NOT NULL COMMENT '파라메터' ,
+  `value` VARCHAR(1000) NOT NULL COMMENT '값' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '환경설정 히스토리';
+
+CREATE INDEX `fk_users__idx__vs__setting_revision__exec_user_idx` ON `tb_setting_revision` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_setting__idx__vs__setting_revision__setting_idx` ON `tb_setting_revision` (`setting_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_setting_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_setting_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_setting_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `setting_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `parameter` VARCHAR(128) NOT NULL COMMENT '파라메터' ,
+  `value` VARCHAR(1000) NOT NULL COMMENT '값' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시판 설정 히스토리';
+
+CREATE INDEX `fk_users__idx__vs__bbs_setting_revision__exec_user_idx` ON `tb_bbs_setting_revision` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_setting_revision__bbs_idx` ON `tb_bbs_setting_revision` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_setting__idx__vs__bbs_setting_revision__setting_idx` ON `tb_bbs_setting_revision` (`setting_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_article_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_article_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_article_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `category_idx` INT(10) UNSIGNED NULL COMMENT '카테고리 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `title` VARCHAR(255) NOT NULL COMMENT '제목' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  `is_notice` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '공지사항 여부 (1:공지사항,0:일반)' ,
+  `is_secret` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '비밀글 여부 (1:비밀글,0:일반)' ,
+  `is_deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (1:삭제,0:일반)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 기본정보 히스토리';
+
+CREATE INDEX `idx_bbs_article_revision__is_deleted` ON `tb_bbs_article_revision` (`is_deleted` ASC) ;
+
+CREATE INDEX `fk_bbs_category__idx__vs__bbs_article_revision__category_idx` ON `tb_bbs_article_revision` (`category_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_article_revision__exec_user_idx` ON `tb_bbs_article_revision` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_article_revision__article_idx` ON `tb_bbs_article_revision` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_article_revision__bbs_idx` ON `tb_bbs_article_revision` (`bbs_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_contents_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_contents_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_contents_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `contents_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `contents` TEXT NOT NULL COMMENT '내용' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 상세내용 히스토리';
+
+CREATE INDEX `fk_bbs_contents__idx__vs__bbs_contents_revision__contents_idx` ON `tb_bbs_contents_revision` (`contents_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_contents_revision__article_idx` ON `tb_bbs_contents_revision` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_contents_revision__bbs_idx` ON `tb_bbs_contents_revision` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_contents_revision__exec_user_idx` ON `tb_bbs_contents_revision` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_comment_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_comment_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_comment_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `article_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시물 idx' ,
+  `comment_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `comment` TEXT NOT NULL COMMENT '코멘트' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  `is_deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '삭제 여부 (1:삭제,0:일반)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시물 코멘트 히스토리';
+
+CREATE INDEX `idx_bbs_comment_revision__is_deleted` ON `tb_bbs_comment_revision` (`is_deleted` ASC) ;
+
+CREATE INDEX `fk_bbs_comment__idx__vs__bbs_comment_revision__comment_idx` ON `tb_bbs_comment_revision` (`comment_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_article__idx__vs__bbs_comment_revision__article_idx` ON `tb_bbs_comment_revision` (`article_idx` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_comment_revision__bbs_idx` ON `tb_bbs_comment_revision` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_comment_revision__exec_user_idx` ON `tb_bbs_comment_revision` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_block_history`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_block_history` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_block_history` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '차단당한 회원 idx' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '차단을 실행한 회원 idx' ,
+  `comment` TEXT NULL COMMENT '코멘트' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  `is_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원 차단 내역';
+
+CREATE INDEX `idx_users_block_history__is_used` ON `tb_users_block_history` (`is_used` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_block_history__user_idx` ON `tb_users_block_history` (`user_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_block_history__exec_user_idx` ON `tb_users_block_history` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_users_group_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_users_group_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_users_group_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `group_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `group_name` VARCHAR(64) NOT NULL COMMENT '그룹명' ,
+  `icon_path` VARCHAR(255) NULL COMMENT '아이콘 경로' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  `is_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '회원그룹 히스토리';
+
+CREATE INDEX `idx_users_group_revision__is_used` ON `tb_users_group_revision` (`is_used` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__users_group_revision__exec_user_idx` ON `tb_users_group_revision` (`exec_user_idx` ASC) ;
+
+CREATE INDEX `fk_users_group__idx__vs__users_group_revision__group_idx` ON `tb_users_group_revision` (`group_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_bbs_category_revision`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_bbs_category_revision` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_bbs_category_revision` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `bbs_idx` INT(10) UNSIGNED NOT NULL COMMENT '게시판 idx' ,
+  `category_idx` INT(10) UNSIGNED NOT NULL COMMENT '부모 idx' ,
+  `category_name` VARCHAR(64) NOT NULL COMMENT '카테고리명' ,
+  `sequence` INT(10) UNSIGNED NULL COMMENT '순서' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '접근 IP' ,
+  `is_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '게시판 카테고리 히스토리';
+
+CREATE INDEX `idx_bbs_category_revision__is_used` ON `tb_bbs_category_revision` (`is_used` ASC) ;
+
+CREATE INDEX `fk_bbs__idx__vs__bbs_category_revision__bbs_idx` ON `tb_bbs_category_revision` (`bbs_idx` ASC) ;
+
+CREATE INDEX `fk_bbs_category__idx__vs__bbs_category_revision__category_idx` ON `tb_bbs_category_revision` (`category_idx` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__bbs_category_revision__exec_user_idx` ON `tb_bbs_category_revision` (`exec_user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `captcha`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `captcha` ;
+
+CREATE  TABLE IF NOT EXISTS `captcha` (
+  `captcha_id` BIGINT(13) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `captcha_time` INT(10) UNSIGNED NOT NULL ,
+  `ip_address` VARCHAR(64) NOT NULL DEFAULT 0 ,
+  `word` VARCHAR(20) NOT NULL ,
+  PRIMARY KEY (`captcha_id`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = 'captcha (CI)';
+
+CREATE INDEX `word` ON `captcha` (`word` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `plugin_onedayonememo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `plugin_onedayonememo` ;
+
+CREATE  TABLE IF NOT EXISTS `plugin_onedayonememo` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `user_idx` INT(10) UNSIGNED NOT NULL COMMENT '회원 idx' ,
+  `contents` VARCHAR(255) NOT NULL COMMENT '내용' ,
+  `point_gamble` INT(3) UNSIGNED NOT NULL COMMENT '선택포인트' ,
+  `point_random` INT(3) UNSIGNED NOT NULL COMMENT '랜덤포인트' ,
+  `point_insert` INT(3) UNSIGNED NOT NULL COMMENT '지급포인트' ,
+  `timestamp` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `client_ip` VARCHAR(64) NOT NULL COMMENT '삽입 접근 IP' ,
+  `is_deleted` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (1:삭제,0:일반)' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE INDEX `idx_onedayonememo__timestamp` ON `plugin_onedayonememo` (`timestamp` ASC) ;
+
+CREATE INDEX `idx_onedayonememo__is_deleted` ON `plugin_onedayonememo` (`is_deleted` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__onedayonememo__user_idx` ON `plugin_onedayonememo` (`user_idx` ASC) ;
+
+
+-- -----------------------------------------------------
+-- Table `tb_themes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tb_themes` ;
+
+CREATE  TABLE IF NOT EXISTS `tb_themes` (
+  `idx` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스' ,
+  `type` CHAR(1) NOT NULL COMMENT 'M:mobile,P:PC' ,
+  `parent_idx` INT(10) UNSIGNED NULL COMMENT '복사해온 테마idx' ,
+  `title` VARCHAR(100) NOT NULL COMMENT '테마명' ,
+  `folder_name` VARCHAR(100) NOT NULL COMMENT '폴더명' ,
+  `exec_user_idx` INT(10) UNSIGNED NOT NULL COMMENT '실행 회원 idx' ,
+  `timestamp_insert` INT(10) UNSIGNED NOT NULL COMMENT '삽입 time()' ,
+  `timestamp_update` INT(10) UNSIGNED NULL COMMENT '수정 time()' ,
+  `client_ip_insert` VARCHAR(64) NOT NULL COMMENT '삽입 IP' ,
+  `client_ip_update` VARCHAR(64) NULL COMMENT '수정 IP' ,
+  `is_used` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '1:사용, 0:미사용' ,
+  PRIMARY KEY (`idx`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci
+COMMENT = '테마관리';
+
+CREATE INDEX `idx_themes__is_used` ON `tb_themes` (`is_used` ASC) ;
+
+CREATE INDEX `fk_users__idx__vs__themes__exec_user_idx` ON `tb_themes` (`exec_user_idx` ASC) ;
