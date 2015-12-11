@@ -121,7 +121,7 @@
             <a href="https://www.facebook.com/tapbbs.zzanlab" target="_blank"><img src="{FRONTEND}img/facebook.png" alt="facebook" /></a>
             <!--a href="{BASE_URL}bbs/rss" target="_blank"><img src="{FRONTEND}img/rss.png" alt="rss" /></a-->
         </p>
-        <p><a href="{BASE_URL}">Home</a> | <a href="{BASE_URL}page/introduce">소개</a> | <a href="{BASE_URL}bbs/lists/community">커뮤니티</a> | <a href="{BASE_URL}bbs/lists/gallery?lists_style=gallery">갤러리</a> | <a href="{BASE_URL}plugin/onedayonememo/lists">하루한마디</a> | <a href="javascript:void(0)" onclick="location.href=updateURLParameter('viewport', 'mobile');">{lang.btn_go_mobile}</a></p>
+        <p><a href="{BASE_URL}">Home</a> | <a href="{BASE_URL}page/introduce">소개</a> | <a href="{BASE_URL}bbs/lists/community">커뮤니티</a> | <a href="{BASE_URL}bbs/lists/gallery?lists_style=gallery">갤러리</a> | <a href="{BASE_URL}plugin/onedayonememo/lists">하루한마디</a> | <a href="`vascript:void(0)" onclick="location.href=updateURLParameter('viewport', 'mobile');">{lang.btn_go_mobile}</a></p>
         <p>Copyright &copy; <a href="http://zzanlab.com" target="_blank">ZzanLAB</a> | <a href="http://www.css3templates.co.uk" target="_blank">design from css3templates.co.uk</a></p>
     </footer>
 </div>

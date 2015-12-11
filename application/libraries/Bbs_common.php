@@ -96,7 +96,7 @@ class Bbs_common
 					$use_cache = TRUE;
 				}
 			}
-
+$use_cache = false;
 			if($use_cache == TRUE) //캐쉬 이용할 조건이면
 			{
 				//데이터

@@ -795,7 +795,7 @@ function delete_message(url, timeout_value)
 function set_message_count(id_div, id_count, timeout_value)
 {
     $.ajax({
-            type:"POST", url:BASE_URL + 'user/get_message_count/', timeout:timeout_value * 1000, success:function (data)
+            type:"POST", url:BASE_URL + 'user/get_message_count', timeout:timeout_value * 1000, success:function (data)
             {
                 var obj = $.parseJSON(data);
 

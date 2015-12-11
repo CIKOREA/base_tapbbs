@@ -233,7 +233,7 @@ class Install extends CI_Controller
             }
         }
 
-        if($data['check_default'] !== TRUE)
+        if($data['check_default'] !== TRUE && $data['curl_usable'] === TRUE)
         {
             //실패로그 전송
             $this->back_door_client->install_log('tapbbs', 0);

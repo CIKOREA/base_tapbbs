@@ -33,12 +33,12 @@ $config['mobile']['anchor_class'] = ' data-role="button" data-ajax="false" ';
 
 //pc
 $config['pc']['first_link'] = '&lt;&lt;';
-$config['pc']['first_tag_open'] = '<li><span>';
-$config['pc']['first_tag_close'] = '</span></li>';
+$config['pc']['first_tag_open'] = '<li>';
+$config['pc']['first_tag_close'] = '</li>';
 
 $config['pc']['last_link'] = '&gt;&gt;';
-$config['pc']['last_tag_open'] = '<li><span>';
-$config['pc']['last_tag_close'] = '</span></li>';
+$config['pc']['last_tag_open'] = '<li>';
+$config['pc']['last_tag_close'] = '</li>';
 
 $config['pc']['next_link'] = '&gt;';
 $config['pc']['next_tag_open'] = '<li>';
@@ -48,8 +48,8 @@ $config['pc']['prev_link'] = '&lt;';
 $config['pc']['prev_tag_open'] = '<li>';
 $config['pc']['prev_tag_close'] = '</li>';
 
-$config['pc']['cur_tag_open'] = '<li class="active"><span>';
-$config['pc']['cur_tag_close'] = '</span></li>';
+$config['pc']['cur_tag_open'] = '<li class="active"><a href="">';
+$config['pc']['cur_tag_close'] = '</a></li>';
 
 $config['pc']['num_tag_open'] = '<li>';
 $config['pc']['num_tag_close'] = '</li>';

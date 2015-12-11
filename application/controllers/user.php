@@ -643,13 +643,11 @@ class User extends MY_Controller
                     $values['memo']                 = $req_memo;
 
                     $result = $this->users_model->modify($values);
-
                     if($result == TRUE)
                     {
                         $post_success       = TRUE; //최종 성공 여부
                         $assign['message']  = lang('update_success');
                         $assign['redirect'] = '/user/modify';
-
                         $this->alert($assign);
                     }
                     else

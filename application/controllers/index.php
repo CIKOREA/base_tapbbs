@@ -56,6 +56,7 @@ class Index extends MY_Controller
         else
         {
             $recently_comment = $this->bbs_comment_model->recently_comment((int)SETTING_recently_comment_count, ' AND BBS_COMMENT.is_deleted = 0 ');
+
             //댓글 페이지 계산
             $recently_comment_page = array();
             foreach($recently_comment as $k => &$comment)
@@ -63,7 +64,7 @@ class Index extends MY_Controller
                 $new_comment_icon = '';
 
                 //파일 존재
-                if(file_exists('.' . SETTING_bbs_hour_new_icon_path_article)) //이 이미지는 게시판별로 할 수 있는데 여기에서는 기본 최근코멘트이미지로 한다
+                if(file_exists('./' . SETTING_bbs_hour_new_icon_path_article)) //이 이미지는 게시판별로 할 수 있는데 여기에서는 기본 최근코멘트이미지로 한다
                 {
                     //시간차
                     if((int)$comment['timestamp_insert'] >= time() - ((int)SETTING_bbs_hour_new_icon_value_comment * 60 * 60)) // 이 시간도 게시판별로 설정할 수 있는데 여기에서는 게시판 기본설정값으로 한다.
@@ -115,7 +116,8 @@ class Index extends MY_Controller
             $assign[$v.'_bbs_lists_style'] = ${$v}->bbs_lists_style;
         }
 
-        $onedayonememo = json_decode($this->curl->simple_get('/plugin/onedayonememo/recently'), TRUE); //이건 플러그인 형태라서 그냥 curl로 간다.
+        //$onedayonememo = json_decode($this->curl->simple_get('/plugin/onedayonememo/recently'), TRUE); //이건 플러그인 형태라서 그냥 curl로 간다.
+        $onedayonememo = array('lists' => array());
 
         $assign = array_merge($assign, array(
             'onedayonememo'         => $onedayonememo['lists'],

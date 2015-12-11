@@ -1,1 +1,1 @@
-tapbbs.v1.0.6
+tapbbs.v1.0.7
