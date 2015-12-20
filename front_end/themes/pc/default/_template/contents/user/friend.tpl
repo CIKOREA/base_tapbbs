@@ -43,7 +43,7 @@
 <input type="hidden" name="idx" id="idx" value="" />
 </form>
 
-<div id="send_message" class="modal hide fade">
+<div id="send_message" class="modal  fade">
     <form method="post" name="send_message_form" id="send_message_form" data-ajax="false" style="margin-bottom:0px">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

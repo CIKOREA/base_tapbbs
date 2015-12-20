@@ -61,9 +61,17 @@
             </table>
 
             <div class="col-md-12 center">
-                <ul class="pagination">
-                    {pagination}
-                </ul>
+                <div class="pull-left col-md-10">
+                    <ul class="pagination" style="margin:0 0 30px 0">
+                        {pagination}
+                    </ul>
+                </div>
+
+                <div class="pull-right col-md-2" style="text-align: right;padding-right:60px">
+                    {? allowed_list.write_article === TRUE}
+                        <a href="{BASE_URL}bbs/write/{bbs_id}?view_category={view_category}&lists_style={lists_style}" class="btn btn-small btn-info">{lang.write}</a>
+                    {/}
+                </div>
             </div>
         </div>
     </div>

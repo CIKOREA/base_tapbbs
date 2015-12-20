@@ -1,4 +1,4 @@
-<?php /* Template_ 2.2.7 2015/01/27 13:30:49 D:\-=WEBDEVELOP=-\zzanlab\cikorea_migration\front_end\themes\pc\default\_template\layout\layout.tpl 000014996 */ 
+<?php /* Template_ 2.2.7 2015/11/29 05:34:42 /cloud9/workspace/cikorea/front_end/themes/pc/default/_template/layout/layout.tpl 000015177 */ 
 $TPL_meta_1=empty($TPL_VAR["meta"])||!is_array($TPL_VAR["meta"])?0:count($TPL_VAR["meta"]);?>
 <!DOCTYPE HTML>
 <html>
@@ -126,7 +126,7 @@ $TPL_meta_1=empty($TPL_VAR["meta"])||!is_array($TPL_VAR["meta"])?0:count($TPL_VA
             <a href="https://www.facebook.com/tapbbs.zzanlab" target="_blank"><img src="<?php echo $TPL_VAR["FRONTEND"]?>img/facebook.png" alt="facebook" /></a>
             <!--a href="<?php echo $TPL_VAR["BASE_URL"]?>bbs/rss" target="_blank"><img src="<?php echo $TPL_VAR["FRONTEND"]?>img/rss.png" alt="rss" /></a-->
         </p>
-        <p><a href="<?php echo $TPL_VAR["BASE_URL"]?>">Home</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>page/introduce">소개</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>bbs/lists/community">커뮤니티</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>bbs/lists/gallery?lists_style=gallery">갤러리</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>plugin/onedayonememo/lists">하루한마디</a> | <a href="javascript:void(0)" onclick="location.href=updateURLParameter('viewport', 'mobile');"><?php echo $TPL_VAR["lang"]["btn_go_mobile"]?></a></p>
+        <p><a href="<?php echo $TPL_VAR["BASE_URL"]?>">Home</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>page/introduce">소개</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>bbs/lists/community">커뮤니티</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>bbs/lists/gallery?lists_style=gallery">갤러리</a> | <a href="<?php echo $TPL_VAR["BASE_URL"]?>plugin/onedayonememo/lists">하루한마디</a> | <a href="`vascript:void(0)" onclick="location.href=updateURLParameter('viewport', 'mobile');"><?php echo $TPL_VAR["lang"]["btn_go_mobile"]?></a></p>
         <p>Copyright &copy; <a href="http://zzanlab.com" target="_blank">ZzanLAB</a> | <a href="http://www.css3templates.co.uk" target="_blank">design from css3templates.co.uk</a></p>
     </footer>
 </div>

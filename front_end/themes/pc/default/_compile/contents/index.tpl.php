@@ -1,4 +1,4 @@
-<?php /* Template_ 2.2.7 2014/10/07 01:58:58 D:\-=WEBDEVELOP=-\zzanlab\cikorea_migration\front_end\themes\pc\default\_template\contents\index.tpl 000008958 */ 
+<?php /* Template_ 2.2.7 2015/11/23 00:40:49 /cloud9/workspace/cikorea/front_end/themes/pc/default/_template/contents/index.tpl 000008940 */ 
 $TPL_community_1=empty($TPL_VAR["community"])||!is_array($TPL_VAR["community"])?0:count($TPL_VAR["community"]);
 $TPL_gallery_1=empty($TPL_VAR["gallery"])||!is_array($TPL_VAR["gallery"])?0:count($TPL_VAR["gallery"]);
 $TPL_onedayonememo_1=empty($TPL_VAR["onedayonememo"])||!is_array($TPL_VAR["onedayonememo"])?0:count($TPL_VAR["onedayonememo"]);

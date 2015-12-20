@@ -36,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.protectedSource.push(/<\?[\s\S]*?\?>?/g);
 
-    config.height = 600;
+    config.height = 400;
 
     config.language = 'ko';
 

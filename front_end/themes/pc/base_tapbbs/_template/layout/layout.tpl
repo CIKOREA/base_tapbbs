@@ -82,7 +82,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Codeigniter <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{BASE_URL}/bbs/lists/news">CI 뉴스 및 다운로드</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/news">CI 뉴스 및 다운로드</a></li>
                                 <li><a href="pricing.html">CI 한글메뉴얼(3.0)</a></li>
                                 <li><a href="404.html">CI 한글메뉴얼(2.1.0)</a></li>
                                 <li><a href="shortcodes.html">CI 한글메뉴얼(1.7.3)</a></li>
@@ -92,26 +92,26 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">포럼 <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{BASE_URL}/bbs/lists/notice">공지사항</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/community">자유게시판</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/tip">TIP</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/lecture">강좌</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/qna">CI 질문</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/etcqna">CI외 질문</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/recruit">구인구직</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/usedci">CI 사이트 소개</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/marketing">광고, 홍보</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/notice">공지사항</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/community">자유게시판</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/tip">TIP</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/lecture">강좌</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/qna">CI 질문</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/etcqna">CI외 질문</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/recruit">구인구직</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/usedci">CI 사이트 소개</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/marketing">광고, 홍보</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">자료실 <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{BASE_URL}/bbs/lists/pds">일반자료</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/news">포럼소스 다운</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/news">TapBBS 다운</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/news">마냐님 공개보드 다운</a></li>
-                                <li><a href="{BASE_URL}/bbs/lists/news">CIBOARD</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/pds_normal">일반자료</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/news">포럼소스 다운</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/news">TapBBS 다운</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/news">마냐님 공개보드 다운</a></li>
+                                <li><a href="{BASE_URL}bbs/lists/news">CIBOARD</a></li>
                             </ul>
                         </li>
 
@@ -142,9 +142,9 @@
 		
     </header><!--/header-->
 
-    <div id="contents">
+    <div id="contents_wrapper">
         {? segment[1] != 'user'}
-        <section id="main-slider" class="no-margin" style="height:427px">
+        <section id="main-slider" class="no-margin" style="height:427px;">
             <div class="carousel slide">
                 <ol class="carousel-indicators">
                     <li data-target="#main-slider" data-slide-to="0" class="active"></li>

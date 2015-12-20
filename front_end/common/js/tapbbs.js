@@ -825,7 +825,7 @@ function set_message_count(id_div, id_count, timeout_value)
 function add_friend(friend, timeout_value)
 {
     $.ajax({
-            type         :"POST", url:BASE_URL + 'user/add_friend/', data:'friend=' + friend, timeout:timeout_value * 1000, success:function (data)
+            type         :"POST", url:BASE_URL + 'user/add_friend', data:'friend=' + friend, timeout:timeout_value * 1000, success:function (data)
             {
                 var obj = $.parseJSON(data);
 

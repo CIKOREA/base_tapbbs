@@ -1,0 +1,5 @@
+application/cache
+front_end/themes/mobile/default/_compile
+front_end/themes/pc/default/_compile
+.idea/
+front_end/themes/pc/base_tapbbs/_compile

@@ -3,13 +3,14 @@
         <div>
             <h2><i class="fa fa-users"></i> {BBS_SETTING_bbs_name}</h2>
 
-            <form method="post" name="write_form" id="write_form" action = "{BASE_URL}bbs/write/{bbs_id}" onsubmit="return (form_null_check('write_form', '{form_null_check}') && form_minimum_check('write_form', '{form_minimum_check}'));" class="form-horizontal">
-
-                <input type="hidden" name="bbs_id" id="bbs_id" value = "{bbs_id}" />
-                <input type="hidden" name="upload_files" id="upload_files" value = "" />
-                <input type="hidden" name="wysiwyg_files" id="wysiwyg_files" value = "" />
-                <input type="hidden" name="view_category" id="view_category" value = "{view_category}" />
-                <input type="hidden" name="lists_style" id="lists_style" value="{lists_style}" />
+            <form method="post" name="modify_form" id = "modify_form" action = "{BASE_URL}bbs/modify/{bbs_id}" onsubmit="return (form_null_check('modify_form', '{form_null_check}') && form_minimum_check('modify_form', '{form_minimum_check}'));">
+                <input type="hidden" name="bbs_id" id = "bbs_id" value="{bbs_id}" />
+                <input type="hidden" name="idx" id = "idx" value="{idx}" />
+                <input type="hidden" name="page" id = "page" value="{page}" />
+                <input type="hidden" name="upload_files" id = "upload_files" value="" />
+                <input type="hidden" name="wysiwyg_files" id="wysiwyg_files" value="{wysiwyg_files}" />
+                <input type="hidden" name="view_category" id = "view_category" value="{view_category}" />
+                <input type="hidden" name="lists_style" id = "lists_style" value="{lists_style}" />
 
                 <table class="bbs_table">
                 <colgroup>
@@ -46,13 +47,13 @@
 
                 <tr>
                     <th>{lang.is_secret}</th>
-                    <td><input type="checkbox" name="is_secret" id="is_secret" class="custom" value = "1" {checkbox_list.is_secret}></td>
+                    <td><input type="checkbox" name="is_secret" id="is_secret" class="custom" value="1" {checkbox_list.is_secret}></td>
                 </tr>
 
                 {*? IS_ADMIN === TRUE*}
                 <tr>
                     <th>{lang.is_notice}</th>
-                    <td><input type="checkbox" name="is_notice" id="is_notice" class="custom" value = "1" {checkbox_list.is_notice}></td>
+                    <td><input type="checkbox" name="is_notice" id="is_notice" class="custom" value="1" {checkbox_list.is_notice}></td>
                 </tr>
                 {*/*}
 
@@ -60,8 +61,8 @@
                     <tr>
                         <th>{lang.tags}</th>
                         <td>
-                            {@ tags_post}
-                            <!--<input type="text" name="tags[]" id="tags" value = "{.value_}" maxlength = "64"><br />-->
+                            {@ tags}
+                            <!--<input type="text" name="tags[]" id="tags" value="{.value_}" maxlength = "64"><br />-->
                             {/}
 
                             <style>
@@ -86,31 +87,37 @@
                     <tr>
                         <th>{lang.urls}</th>
                         <td style="padding:5px 0 5px 10px">
-                            {@ urls_post}
-                            <input type="text" name="urls[]" id="tags" value="{.value_}" maxlength="255" class="form-control"><br />
+                            {@ urls}
+                                <input type="text" name="urls[]" id="tags" value="{.value_}" maxlength="255" class="form-control"><br />
                             {/}
                         </td>
                     </tr>
                 {/}
 
                 {? BBS_SETTING_bbs_upload_used == 1 && allowed_list.upload === TRUE}
-                    <tr>
-                        <th>{lang.files}</th>
-                        <td>
-                            <div class="uploaded_files"></div>
-                            <div id="file-uploader"></div>
-                            <noscript>
-                                <p>Please enable JavaScript to use file uploader.</p>
-                            </noscript>
-                        </td>
-                    </tr>
+                <tr>
+                    <th>{lang.files}</th>
+                    <td>
+                        <div class="uploaded_files">
+                            {@files}
+                                {files->original_filename}
+                                <input type="checkbox" name = "delete_file[]" id = "delete_file_{files->idx}" value = "{files->idx}" data-role = "none" /> <label for="delete_file_{files->idx}" style="display:inline">{lang.delete}</label><br />
+                            {/}
+                        </div>
+                        <div id="file-uploader"></div>
+                        <noscript>
+                            <p>Please enable JavaScript to use file uploader.</p>
+                        </noscript>
+                    </td>
+                </tr>
                 {/}
 
                 <tr>
                     <td colspan="2">
                         <div class="pull-right btn-group" role="group">
-                            <button type="button" class="btn btn-small btn-success" onclick = "confirm_really('write_form');">{lang.write}</button>
-                            <a href="{BASE_URL}bbs/lists/{bbs_id}?view_category={view_category}&amp;lists_style={lists_style}" class="btn btn-small">{lang.lists}</a>
+                            <button type="button" class="btn btn-small btn-success" onclick="confirm_really('modify_form');">{lang.update}</button>
+                            <a href="javascript:void(0)" class="btn btn-small" onclick="history.go(-1);">{lang.cancel}</a>
+                            <button type="button" class="btn btn-small btn-danger" value = "{lang.delete}" onclick="confirm_really('delete_form');">{lang.delete}</button>
                         </div>
                     </td>
                 </tr>
@@ -125,7 +132,14 @@
     <input type="hidden" id="upload_allowed_extension" name="upload_allowed_extension" value="{= join('\',\'', upload_allowed_extension)}">
 </form>
 
-<script type = "text/javascript">
+<form method = "post" name = "delete_form" id = "delete_form" action = "{BASE_URL}bbs/delete/{bbs_id}">
+    <input type = "hidden" name = "idx" id = "idx" value = "{idx}" />
+    <input type = "hidden" name = "view_category" id = "view_category" value = "{view_category}" />
+    <input type = "hidden" name = "lists_style" id = "lists_style" value = "{lists_style}" />
+</form>
+
+
+<script type="text/javascript">
     //성공카운트
     var success_cnt = 0;
 

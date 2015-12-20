@@ -2638,7 +2638,7 @@ shortcodes page css
     padding: 0 auto;
 }
 
-#contents {
+#contents_wrapper {
     display: block;
     margin-top: 139px;
 }
